@@ -23,6 +23,14 @@ body {
   place-content: center;
 }
 
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
 #root {
   width: $mobile-width;
   height: $mobile-height;
@@ -30,5 +38,5 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 30px;
-  
+  position: relative;
 }
