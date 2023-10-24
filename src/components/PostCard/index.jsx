@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router-dom'
 import contactPhoto from '../../assets/images/image-1.svg'
 import post from '../../assets/images/post-image.svg'
 import save from '../../assets/icons/save.svg'
@@ -12,8 +13,15 @@ const PostCard = ({ data }) => {
     data: PropTypes.object
   }
 
+  const navigate = useNavigate()
+
+  const goToPost = () => navigate('/post-detail')
+
   return (
-    <article className='post-card'>
+    <article
+      className='post-card'
+      onClick={() => goToPost()}
+    >
       <div className='post-card__contact-info'>
         <img src={contactPhoto} alt='contact photo' />
         <span>username</span>
