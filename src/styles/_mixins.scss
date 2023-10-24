@@ -36,3 +36,9 @@
     outline: $focus-th solid $focus-color;
   }
 }
+
+@mixin removeScrollBar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
