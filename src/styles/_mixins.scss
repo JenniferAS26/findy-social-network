@@ -35,8 +35,14 @@
     letter-spacing: $letter-sp;
   }
   &:focus {
-    outline: $focus-th solid $focus-color;
+    outline: none;
   }
+}
+
+@mixin pageStyles {
+  width: 100%;
+  height: auto;
+  display: grid;
 }
 
 @mixin removeScrollBar {
