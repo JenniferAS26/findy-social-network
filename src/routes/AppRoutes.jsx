@@ -11,9 +11,9 @@ const AppRoutes = () => {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Feed />} />
-        <Route path='profile' element={<Profile />} />
         <Route path='post-detail' element={<PostDetail />} />
       </Route>
+      <Route path='profile' element={<Profile />} />
       <Route path='sign-in' element={<SignIn />} />
       <Route path='sign-up' element={<SignUp />} />
     </Routes>
