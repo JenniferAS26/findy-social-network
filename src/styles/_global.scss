@@ -34,9 +34,10 @@ a {
 #root {
   width: $mobile-width;
   height: $mobile-height;
+  background-color: $color-5;
   background-image: url('../assets/images/wallpaper.svg');
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 30px;
+  border-radius: 33px;
   position: relative;
 }
