@@ -5,6 +5,7 @@ import ImageUhPaper from "../../assets/images/jennie-blackpink-uhdpaper.com-hd-4
 import ImageEllipse3 from "../../assets/icons/Ellipse 3.svg";
 import ImageSlide from "../../assets/icons/back.svg";
 import "./styles.scss";
+import Gallery from "../../components/Gallery";
 
 const Profile = () => {
   return (
@@ -39,17 +40,9 @@ const Profile = () => {
           <button className="follow">Follow</button>
           <button className="messages">Messages</button>
         </div>
-        <div className="Profile-contianer-page__inside__Gallery">
-          <div className="Profile-contianer-page__inside__Gallery_header">
-            <h5 className="Photos">Photos</h5>
-            <h5 className="Videos">Videos</h5>
-            <h5 className="album">Album</h5>
-            <h5 className="tag">Tag</h5>
-          </div>
-          <div className="Profile-contianer-page__inside__Gsllery_card">
-            <Card />
-          </div>
-        </div>
+        <Gallery>
+          <Card />
+        </Gallery>
       </div>
     </section>
   );
