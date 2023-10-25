@@ -15,7 +15,7 @@ const Navbar = () => {
           <Link className='footer__list--options' to='/'>
             <img src={homeIcon} alt='house icon' />
           </Link>
-          <Link className='footer__list--options' to='/'>
+          <Link className='footer__list--options' to='/search'>
             <img src={search} alt='house icon' />
           </Link>
         </div>

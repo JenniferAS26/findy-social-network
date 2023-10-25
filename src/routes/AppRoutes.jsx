@@ -1,10 +1,12 @@
 import { Routes, Route } from "react-router-dom"
+import Layout from "../components/Layout"
 import Feed from "../pages/Feed"
 import SignIn from "../pages/SignIn"
 import SignUp from "../pages/SignUp"
 import Profile from "../pages/Profile"
 import PostDetail from "../pages/PostDetail"
-import Layout from "../components/Layout"
+import SearchContent from "../pages/SearchContent"
+import MyAccount from "../pages/MyAccount"
 
 const AppRoutes = () => {
   return (
@@ -12,8 +14,10 @@ const AppRoutes = () => {
       <Route element={<Layout />}>
         <Route index element={<Feed />} />
         <Route path='post-detail' element={<PostDetail />} />
+        <Route path='search' element={<SearchContent />} />
+        <Route path='profile' element={<MyAccount />} />
       </Route>
-      <Route path='profile' element={<Profile />} />
+      <Route path='user-profile' element={<Profile />} />
       <Route path='sign-in' element={<SignIn />} />
       <Route path='sign-up' element={<SignUp />} />
     </Routes>
