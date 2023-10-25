@@ -24,9 +24,15 @@
       .slide{
         width: 12px;
         height: 24px;
+        border: transparent;
+        background-color: transparent;
         display: grid;
         margin-top: -168px;
         margin-left: 23px;
+        img{
+          width: 11px;
+          height: 24px;
+        }
       }
     }
     .Profile-contianer-page__inside__followers{

@@ -18,7 +18,9 @@ const Profile = () => {
       <div className="Profile-conatiner-page__inside">
         <header className="Profile-container-page__inside_header">
           <img className='black' src={ImageBlackPink} alt="imagen" />
-          <img className='slide'  src={ImageSlide} alt="icono" /* onClick={handleImageClick}  */ />
+          <button className='slide'   /* onClick={handleImageClick}  */>
+           <img src={ImageSlide} alt="icono"  />
+          </button>
         </header>
         <div className="Profile-contianer-page__inside__followers">
           <article className="followers">
