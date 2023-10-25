@@ -2,6 +2,7 @@ import Card from "../../components/Card"
 import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
 import ImageUhPaper from '../../assets/images/jennie-blackpink-uhdpaper.com-hd-4 1.png'
 import ImageEllipse3 from '../../assets/icons/Ellipse 3.svg'
+import ImageModal from '../../assets/images/Variant=Default, Dark mode=False.png'
 import ImageSlide from '../../assets/icons/back.svg'
 import './styles.scss'
 
@@ -10,20 +11,22 @@ const Profile = () => {
     <section className="Profile-container-page">
       <div className="Profile-conatiner-page__inside">
         <header className="Profile-container-page__inside_header">
-          <img src={ImageBlackPink} alt="imagen" />
-          <img src={ImageSlide} alt="icono" />
+          <img className='black' src={ImageBlackPink} alt="imagen" />
+          <img className='slide'  src={ImageSlide} alt="icono" />
+          <div className='container'><img src={ImageModal} alt="" /> </div>
+          
         </header>
         <div className="Profile-contianer-page__inside__followers">
           <article className="followers">
-            <span>10.7 M</span>
+            <h4>10.7 M</h4>
             <h5>Followers</h5>
           </article>
-          <article>
-            <img src={ImageUhPaper} alt="imagen" />
-            <img src={ImageEllipse3} alt="icono" />
+          <article className="image-center">
+            <img className="image"  src={ImageUhPaper} alt="imagen" />
+            <img className="circle"  src={ImageEllipse3} alt="icono" />
           </article>
           <article className="likes">
-            <span>108.3 M</span>
+            <h4>108.3 M</h4>
             <h5>Likes</h5>
           </article>
         </div>
@@ -33,19 +36,22 @@ const Profile = () => {
           <h6>Follow me and like my post</h6>
         </div>
         <div className="Profile-contianer-page__inside__follow-massages">
-          <button>Follow</button>
-          <button>Massages</button>
+          <button className="follow">Follow</button>
+          <button className="messages">Messages</button>
         </div>
-        <div className="Profile-contianer-page__inside__Gsllery">
+        <div className="Profile-contianer-page__inside__Gallery">
+          <div className="Profile-contianer-page__inside__Gallery_header">
           <h5 className="Photos">Photos</h5>
           <h5 className="Videos">Videos</h5>
           <h5 className="album">Album</h5>
           <h5 className="tag">Tag</h5>
-          <div>
+          </div>
+          <div className="Profile-contianer-page__inside__Gsllery_card">
             <Card />
           </div>
+          </div>
         </div>
-      </div>
+
     </section>
   );
 };
