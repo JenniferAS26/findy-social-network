@@ -2,23 +2,27 @@ import Card from "../../components/Card"
 import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
 import ImageUhPaper from '../../assets/images/jennie-blackpink-uhdpaper.com-hd-4 1.png'
 import ImageEllipse3 from '../../assets/icons/Ellipse 3.svg'
-import ImageModal from '../../assets/images/Variant=Default, Dark mode=False.png'
 import ImageSlide from '../../assets/icons/back.svg'
+/* import useFeed from '../Feed' */
 import './styles.scss'
 
 const Profile = () => {
+ /*  const feed = useFeed();
+  
+  const handleImageClick = () {
+    feed.push('../Feed')
+  } */
+
   return (
     <section className="Profile-container-page">
       <div className="Profile-conatiner-page__inside">
         <header className="Profile-container-page__inside_header">
           <img className='black' src={ImageBlackPink} alt="imagen" />
-          <img className='slide'  src={ImageSlide} alt="icono" />
-          <div className='container'><img src={ImageModal} alt="" /> </div>
-          
+          <img className='slide'  src={ImageSlide} alt="icono" /* onClick={handleImageClick}  */ />
         </header>
         <div className="Profile-contianer-page__inside__followers">
           <article className="followers">
-            <h4>10.7 M</h4>
+            <h3>10.7 M</h3>
             <h5>Followers</h5>
           </article>
           <article className="image-center">
@@ -26,7 +30,7 @@ const Profile = () => {
             <img className="circle"  src={ImageEllipse3} alt="icono" />
           </article>
           <article className="likes">
-            <h4>108.3 M</h4>
+            <h3>108.3 M</h3>
             <h5>Likes</h5>
           </article>
         </div>
