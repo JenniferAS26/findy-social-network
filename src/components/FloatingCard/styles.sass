@@ -1,0 +1,32 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+.floating-card
+  width: 278px
+  height: 64px
+  padding: 0 8px
+  border-radius: 20px
+  background-color: $color-5
+  @include flexCenter(row, space-between, center)
+  position: absolute
+  top: calc( 558px - 64px / 2 )
+  &__photo-name
+    @include flexCenter(row, flex-start, center)
+    gap: 5px
+    &--image
+      width: 48px
+      height: 48px
+    &--name
+      font-size: 1.2rem
+      font-weight: $bold-weight
+      color: $primary-text-color
+  &__reactions
+    @include flexCenter(row, space-between, center)
+    gap: 18px
+    &--reaction 
+      width: 27px
+      height: 35px
+      display: grid
+      img
+        width: 18px
+        height: 16px

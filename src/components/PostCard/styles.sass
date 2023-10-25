@@ -2,7 +2,6 @@
 @use '../../styles/mixins' as *
 
 .post-card
-  cursor: pointer
   width: 376px
   height: 558px
   display: grid
@@ -16,9 +15,11 @@
     @include flexCenter(row, flex-start, center)
     gap: 5px
     span
+      cursor: pointer
       font-size: 1.6rem
       font-weight: $bold-weight
   &__media-container
+    cursor: pointer 
     width: 360px
     height: 360px
     justify-self: center
@@ -54,5 +55,6 @@
       font-size: 1.2rem
       font-weight: $regular-weight
       .username
+        cursor: pointer
         font-size: 1.6rem
         font-weight: $bold-weight
