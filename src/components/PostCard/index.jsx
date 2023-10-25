@@ -15,18 +15,20 @@ const PostCard = ({ data }) => {
 
   const navigate = useNavigate()
 
+  const goToUserProfile = () => navigate('/user-profile')
   const goToPost = () => navigate('/post-detail')
 
   return (
     <article
       className='post-card'
-      onClick={() => goToPost()}
     >
       <div className='post-card__contact-info'>
         <img src={contactPhoto} alt='contact photo' />
-        <span>username</span>
+        <span onClick={() => goToUserProfile()}>
+          username
+        </span>
       </div>
-      <div className='post-card__media-container'>
+      <div className='post-card__media-container' onClick={() => goToPost()}>
         <img src={post} alt='post content' />
       </div>
       <div className='post-card__icons'>
@@ -47,7 +49,7 @@ const PostCard = ({ data }) => {
         <img className='save' src={save} alt='label icon' />
       </div>
       <div className='post-card__description'>
-        <p className='post-card__description--text'><span className='username'>username</span> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores omnis consequuntur eius iure, voluptatum, nobis laborum doloremque deserunt consequatur animi, ad aliquid ullam debitis cupiditate quisquam dolorem distinctio perspiciatis rerum!</p>
+        <p className='post-card__description--text'><span className='username' onClick={() => goToUserProfile()}>username</span> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores omnis consequuntur eius iure, voluptatum, nobis laborum doloremque deserunt consequatur animi, ad aliquid ullam debitis cupiditate quisquam dolorem distinctio perspiciatis rerum!</p>
       </div>
     </article>
   )

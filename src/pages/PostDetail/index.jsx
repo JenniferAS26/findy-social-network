@@ -6,6 +6,7 @@ import profilePicture from '../../assets/images/profile-picture.svg'
 import sendComment from '../../assets/icons/send-message.svg'
 
 import './styles.sass'
+import FloatingCard from '../../components/FloatingCard'
 
 const PostDetail = () => {
   return (
@@ -22,6 +23,7 @@ const PostDetail = () => {
       <section className='post-detail__description'>
         <p className='post-detail__description--text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed voluptates et reprehenderit consequuntur hic, fugit incidunt nemo facilis in. Quas, aliquid perferendis? Deserunt obcaecati, repellendus amet consectetur dignissimos at maxime. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa, libero. Reiciendis.</p>
       </section>
+      <FloatingCard />
       <form className='post-detail__new-comment'>
         <img className='post-detail__new-comment--image' src={profilePicture} alt='profile picture' />
         <div className='post-detail__new-comment--input-wrapper'>
