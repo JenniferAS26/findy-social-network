@@ -1,0 +1,12 @@
+@use '../../styles/variables' as *
+
+.Profile-container-page{
+   width: 325px;
+   height: 720px;
+   display: grid;
+   .Profile-conatiner-page__inside{
+    width: 210px;
+    height: 90px;
+    display: grid;
+   }
+}
