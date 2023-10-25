@@ -1,3 +1,5 @@
+@use './variables' as *;
+
 @mixin flexCenter($direction, $content, $align) {
   display: flex;
   flex-direction: $direction;
@@ -33,6 +35,18 @@
     letter-spacing: $letter-sp;
   }
   &:focus {
-    outline: $focus-th solid $focus-color;
+    outline: none;
+  }
+}
+
+@mixin pageStyles {
+  width: 100%;
+  height: auto;
+  display: grid;
+}
+
+@mixin removeScrollBar {
+  &::-webkit-scrollbar {
+    display: none;
   }
 }

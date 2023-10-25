@@ -7,8 +7,9 @@ import profile from '../../assets/images/profile-picture.svg'
 import './styles.sass'
 
 const Navbar = () => {
-  return (
+  return (<>
     <nav className='footer'>
+    <button className='make-a-post'>+</button>
       <ul className='footer__list'>
         <div className='left'>
           <Link className='footer__list--options' to='/'>
@@ -28,7 +29,7 @@ const Navbar = () => {
         </div>
       </ul>
     </nav>
-  )
+  </>)
 }
 
 export default Navbar
