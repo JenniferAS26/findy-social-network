@@ -1,14 +1,22 @@
+import { useNavigate } from 'react-router-dom'
 import profilePicture from '../../assets/images/profile-status.svg'
 import status1 from '../../assets/images/photo-1.jpg'
 import status2 from '../../assets/images/photo-2.jpg'
 import status3 from '../../assets/images/photo-3.jpg'
 import status4 from '../../assets/images/photo-4.jpg'
 import status5 from '../../assets/images/photo-5.jpg'
-
-import './styles.sass'
 import MyGallery from '../../components/MyGallery'
 
+import './styles.sass'
+
 const MyAccount = () => {
+  const navigate = useNavigate()
+
+  const editAccount = () => {
+    navigate('/edit-account')
+  }
+
+
   return (
     <main className='my-account'>
       <h3 className='my-account__username'>user_name</h3>
@@ -29,7 +37,12 @@ const MyAccount = () => {
       </div>
       <span className='my-account__name'>Name</span>
       <div className='my-account__buttons-container'>
-        <button className='my-account__buttons-container--button edit'>Edit profile</button>
+        <button 
+          className='my-account__buttons-container--button edit'
+          onClick={editAccount}
+        >
+          Edit profile
+        </button>
         <button className='my-account__buttons-container--button share'>Share profile</button>
       </div>
       <div className='my-account__stories'>
