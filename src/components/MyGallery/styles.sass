@@ -1,0 +1,39 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+.my-gallery
+  width: 100%
+  height: 519px
+  padding: 15px 16px
+  border-radius: 33px
+  display: grid
+  grid-template-rows: 40px 1fr
+  background-color: $color-5
+  &__navbar
+    width: 100%
+    height: 40px
+    padding: 0 15px
+    @include flexCenter(row, space-between, center)
+    &--link
+      color: $secondary-text-color
+      font-size: 1.6rem
+      font-weight: $medium-weight
+      &:hover
+        text-decoration: underline $color-1 2px 
+  &__posts-container
+    width: 100%
+    overflow-y: scroll
+    @include removeScrollBar
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    row-gap: 10px
+    &--post
+      width: 170px
+      height: 213px
+      border-radius: 20px
+      img
+        width: 100%
+        height: 100%
+        object-fit: cover
+        border-radius: 20px
+
