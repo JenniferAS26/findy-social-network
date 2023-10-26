@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useState } from 'react'
 import axios from 'axios'
 import { v4 as uuid } from 'uuid'
+import { createUser } from '../../services/userService';
+import { addFollow } from '../../services/followingService';
 import Card from "../../components/Card";
 import Gallery from "../../components/Gallery";
 import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
@@ -13,19 +15,31 @@ import "./styles.scss";
 const Profile = () => {
 
   const [userData, setUserData] = useState({
-    name: 'Jennie Kim',
+    name:'Jennie Kim',
     username: '',
-    /* followid: '' */
+    followId: ''
   });
 
-  const handleFollowClick = async () => {
+  /* const handleFollowClick = async () => {
     try {
       const response = await axios.post('https://findy-app-service.onrender.com/users', userData);
       console.log('Datos enviados con éxito:', response.data);
     } catch (error) {
       console.error('Error al enviar los datos:', error);
     }
- };
+ }; */
+ const handleFollowClick = async () => {
+  try {
+    // Aquí puedes decidir qué información enviar a createUser.
+    const newUser = await createUser({ name: userData.name });
+
+    // Envia la información del nuevo usuario a tu endpoint propio
+    const response = await addFollow(newUser);
+    console.log('Datos enviados con éxito:', response);
+  } catch (error) {
+    console.error('Error al enviar los datos:', error);
+  }
+};
 
 
   return (
