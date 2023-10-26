@@ -2,15 +2,15 @@
 @use  '../../styles/mixins' as * ;
 
 .Profile-container-page{
-   width: 411px;
+   width: 414px;
    height: 869px;
    display: grid;
    .Profile-conatiner-page__inside{
-    width: 411px;
+    width: 414px;
     height: 90px;
     display: grid;
     .Profile-container-page__inside_header{
-      width: 425px;
+      width: 414px;
       height: 227px;
       display: grid;
       .black{
