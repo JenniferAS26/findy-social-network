@@ -51,11 +51,25 @@ const deleteUser = async ( id ) => {
   }
 }
 
+const saveImage = async file => {
+  const body = {
+    file,
+    api_key: 357824561481388,
+    upload_preset: 't4dskobq'
+  }
+  const headers = {
+    "Content-Type": "multipart/form-data",
+  }
+  const response = await axios.post(endpoints.cloudinary, body, { headers })
+  return response.data.url
+}
+
 export {
   createUser,
   getUser,
   getUserByParams,
   updateUser,
   updateUserByParams,
-  deleteUser
+  deleteUser,
+  saveImage
 }

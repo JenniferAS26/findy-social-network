@@ -7,6 +7,7 @@ import Profile from "../pages/Profile"
 import PostDetail from "../pages/PostDetail"
 import SearchContent from "../pages/SearchContent"
 import MyAccount from "../pages/MyAccount"
+import EditMyAccount from "../pages/EditMyAccount"
 
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
       <Route path='user-profile' element={<Profile />} />
       <Route path='sign-in' element={<SignIn />} />
       <Route path='sign-up' element={<SignUp />} />
+      <Route path='edit-account' element={<EditMyAccount />} />
     </Routes>
   )
 }
