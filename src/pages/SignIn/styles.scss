@@ -1,0 +1,52 @@
+    /* styles.scss */
+
+    .signin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    img {
+        margin-bottom: 80px;
+        width: 100px; 
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        input {
+        width: 90%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        border: 1px solid #dcdcdc;
+        }
+        input:focus {
+            outline: none;
+        }
+
+        button {
+        width: 90%;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #FF7674;
+        color: white; 
+        border: none;
+        cursor: pointer;
+        border-radius: 20px;
+        }
+    }
+
+    p {
+        margin-top: 20px;
+
+        a {
+        text-decoration: none;
+        color: #FF7674;
+        }
+    }
+    }
