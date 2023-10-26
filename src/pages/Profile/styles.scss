@@ -10,26 +10,26 @@
     height: 90px;
     display: grid;
     .Profile-container-page__inside_header{
-      width: 414px;
-      height: 227px;
-      display: grid;
-      .black{
-        width: 413px;
-        height: 234px;
+        width: 414px;
+        height: 227px;
         display: grid;
-        margin-top: 0px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-      }
-      .slide{
-        width: 12px;
-        height: 24px;
-        border: transparent;
-        background-color: transparent;
-        display: grid;
-        margin-top: -168px;
-        margin-left: 23px;
-        img{
+        .black{
+          width: 413px;
+          height: 234px;
+          display: grid;
+          margin-top: 0px;
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+        }
+        .slide{
+          width: 12px;
+          height: 24px;
+          border: transparent;
+          background-color: transparent;
+          display: grid;
+          margin-top: -168px;
+          margin-left: 23px;
+          img{
           width: 11px;
           height: 24px;
         }
@@ -157,7 +157,7 @@
       height: 38px;
       display: grid;
       @include flexCenter(row, center, center);
-      column-gap: 10px;
+      column-gap: 8px;
       justify-items: center;
       margin-left: -13px;
       .follow{
@@ -175,7 +175,7 @@
         height: 35px;
         background-color: $color-1;
         border: transparent;
-        border-radius: 10px;
+        border-radius: 8px;
         color: $color-5;
         font-family: $font-source;
         font-size: 18px;
