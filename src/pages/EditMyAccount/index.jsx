@@ -15,18 +15,17 @@ const EditMyAccount = () => {
   const handleImageChange = event => {
     const chosenImage = event.target.files[0]
     const imageReaderAPI = new FileReader()
-
     imageReaderAPI.onloadend = () => {
       setImagePreview(imageReaderAPI.result)
     }
-
+    
     if (chosenImage) {
       imageReaderAPI.readAsDataURL(chosenImage)
     }
   }
-
-  const onSubmit = async ( event, userInfo ) => {
-    event.preventDefault()
+  
+  const onSubmit = async ( userInfo ) => {
+    // event.preventDefault()
     const file = userInfo.profilePhoto[0]
     const imageUrl = await saveImage(file)
     const newUserInfo = {
