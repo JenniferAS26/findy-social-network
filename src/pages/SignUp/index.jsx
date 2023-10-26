@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Agrega useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 import './styles.scss';
 import flechitaIcon from '../../assets/icons/flechita.png';
+import { createUser } from '../../services/userService.js';
 
 const SignUpForm = () => {
   const [step, setStep] = useState(1);
@@ -43,7 +44,19 @@ const SignUpForm = () => {
     }
   };
 
-  const navigate = useNavigate(); // Obtiene la función de navegación
+  const navigate = useNavigate();
+
+  const handleSignUp = async () => {
+    if (isStepValid()) {
+      try {
+        const newUser = await createUser(formData);
+        console.log(newUser); 
+        navigate('/');
+      } catch (error) {
+        console.error('Error al crear el usuario:', error);
+      }
+    }
+  };
 
   return (
     <div className="signup-form">
@@ -140,11 +153,7 @@ const SignUpForm = () => {
             <p>
               Es posible que te enviemos notificaciones por SMS con fines de seguridad e inicio de sesión.
             </p>
-            <button onClick={() => {
-              if (isStepValid()) {
-                navigate('/'); // Redirige al usuario a la ruta '/'
-              }
-            }} disabled={!isStepValid()}>
+            <button onClick={handleSignUp} disabled={!isStepValid()}>
               Registrarse
             </button>
           </div>
