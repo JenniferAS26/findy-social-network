@@ -36,7 +36,7 @@
       }
     }
     .Profile-contianer-page__inside__followers{
-      width: 388px;
+      width: 100%;
       height: 34px;
       display: grid;
       @include flexCenter (row, center, right);      
@@ -57,7 +57,7 @@
           font-family: $font-source;
           font-size: 50px;
           font-weight: 700;
-          margin-top: 20px;
+          justify-content: space-around;
          /*  margin-left: 10px; */
         }
         h5{
@@ -77,7 +77,7 @@
         height: 76px;
         display: grid;
         justify-content: flex-end;
-        margin-left: -37px;
+        justify-content: space-around;
         .image{
            border-radius: 50%;
            margin-top: -45px;
@@ -92,6 +92,9 @@
         display: grid;
         margin-left: 41px;
         justify-content: center;
+        justify-items: start;
+        align-items: center;
+        align-content: space-evenly;
         font-family: $font-source;
         .h3{
           width: 48px;

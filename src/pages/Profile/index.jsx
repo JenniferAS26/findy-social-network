@@ -1,25 +1,31 @@
 import { Link } from "react-router-dom";
 import { useState } from 'react'
+import axios from 'axios'
+import { v4 as uuid } from 'uuid'
 import Card from "../../components/Card";
+import Gallery from "../../components/Gallery";
 import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
 import ImageUhPaper from "../../assets/images/jennie-blackpink-uhdpaper.com-hd-4 1.png";
 import ImageEllipse3 from "../../assets/icons/Ellipse 3.svg";
 import ImageSlide from "../../assets/icons/back.svg";
 import "./styles.scss";
-import Gallery from "../../components/Gallery";
 
 const Profile = () => {
-  
+
   const [userData, setUserData] = useState({
     name: 'Jennie Kim',
-    username: 'j.hello Guys',
-    followid: ''
+    username: '',
+    /* followid: '' */
   });
 
-  const hanleFollowClick = () => {
-    console.log(`Nombre: ${userData.name}, Username: ${userData.username}`);
-  }
-
+  const handleFollowClick = async () => {
+    try {
+      const response = await axios.post('https://findy-app-service.onrender.com/users', userData);
+      console.log('Datos enviados con éxito:', response.data);
+    } catch (error) {
+      console.error('Error al enviar los datos:', error);
+    }
+ };
 
 
   return (
@@ -51,7 +57,7 @@ const Profile = () => {
           <h6>Follow me and like my post</h6>
         </div>
         <div className="Profile-contianer-page__inside__follow-massages">
-          <button className="follow" onClick={hanleFollowClick}>Follow</button>
+          <button className="follow" onClick={handleFollowClick}>Follow</button>
           <button className="messages">Messages</button>
         </div>
         <Gallery>
