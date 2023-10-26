@@ -30,10 +30,10 @@ const Profile = () => {
  }; */
  const handleFollowClick = async () => {
   try {
-    // Aquí  se puede decidir qué información enviar a createUser.
+    
     const newUser = await createUser({ name: userData.name });
 
-    // Envia la información del nuevo usuario al endpoint de following
+    
     const response = await addFollow(newUser);
     console.log('Datos enviados con éxito:', response);
   } catch (error) {
