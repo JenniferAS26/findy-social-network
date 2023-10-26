@@ -51,7 +51,7 @@ const SignUpForm = () => {
       try {
         const newUser = await createUser(formData);
         console.log(newUser); 
-        navigate('/');
+        navigate('/'); /* /sign-in */
       } catch (error) {
         console.error('Error al crear el usuario:', error);
       }

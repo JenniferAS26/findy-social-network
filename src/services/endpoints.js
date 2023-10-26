@@ -1,4 +1,4 @@
-const BASE_URL = 'https://findy-app-service.onrender.com/'
+const BASE_URL = 'https://findy-app-service.onrender.com'
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dkd5jyxby/image/upload'
 
 export const endpoints = {
