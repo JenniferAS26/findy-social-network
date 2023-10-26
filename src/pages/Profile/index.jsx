@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from 'react'
 import Card from "../../components/Card";
 import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
 import ImageUhPaper from "../../assets/images/jennie-blackpink-uhdpaper.com-hd-4 1.png";
@@ -8,6 +9,19 @@ import "./styles.scss";
 import Gallery from "../../components/Gallery";
 
 const Profile = () => {
+  
+  const [userData, setUserData] = useState({
+    name: 'Jennie Kim',
+    username: 'j.hello Guys',
+    followid: ''
+  });
+
+  const hanleFollowClick = () => {
+    console.log(`Nombre: ${userData.name}, Username: ${userData.username}`);
+  }
+
+
+
   return (
     <section className="Profile-container-page">
       <div className="Profile-conatiner-page__inside">
@@ -37,7 +51,7 @@ const Profile = () => {
           <h6>Follow me and like my post</h6>
         </div>
         <div className="Profile-contianer-page__inside__follow-massages">
-          <button className="follow">Follow</button>
+          <button className="follow" onClick={hanleFollowClick}>Follow</button>
           <button className="messages">Messages</button>
         </div>
         <Gallery>
