@@ -1,0 +1,62 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+.make-post
+  @include pageStyles
+  .first-step 
+    width: 100%
+    height: 100%
+    display: grid
+    gap: 10px
+  &__top
+    width: 100%
+    height: 50px
+    padding: 0 20px
+    @include flexCenter(row, space-between, flex-end)
+    &--right
+      width: 250px
+      height: 100%
+      @include flexCenter(row, flex-start, flex-end)
+      gap: 10px
+      .back
+        font-size: 2rem
+        color: $primary-text-color
+      .title
+        font-size: 2.2rem
+    &--left
+      cursor: pointer
+      width: 70px
+      height: 100%
+      font-size: 2rem
+      font-weight: $bold-weight
+      color: $color-1
+      letter-spacing: 1px
+      background-color: transparent
+      border: none
+      display: grid
+      align-items: end
+      padding-bottom: 5px
+  &__post-container
+    width: 100%
+    height: 450px
+    &--post
+      width: 100%
+      height: 100%
+      object-fit: cover
+  &__recents
+    width: 100%
+    height: 100%
+    display: grid
+    justify-content: center
+    justify-items: center
+    align-items: center
+    grid-template-columns: repeat(4, 95px)
+    grid-template-rows: repeat(3, 95px)
+    gap: 10px
+    &--choose
+      width: 95px
+      height: 95px
+    &--image
+      width: 100%
+      height: 100%
+      object-fit: cover
