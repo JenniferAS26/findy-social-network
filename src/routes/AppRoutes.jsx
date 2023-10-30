@@ -8,6 +8,7 @@ import PostDetail from "../pages/PostDetail"
 import SearchContent from "../pages/SearchContent"
 import MyAccount from "../pages/MyAccount"
 import EditMyAccount from "../pages/EditMyAccount"
+import MakePost from "../pages/MakePost"
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
         <Route path='search' element={<SearchContent />} />
         <Route path='profile' element={<MyAccount />} />
       </Route>
+      <Route path='make-post' element={<MakePost />} />
       <Route path='user-profile' element={<Profile />} />
       <Route path='sign-in' element={<SignIn />} />
       <Route path='sign-up' element={<SignUp />} />
