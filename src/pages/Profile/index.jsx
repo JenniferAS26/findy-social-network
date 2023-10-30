@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from 'react'
-import axios from 'axios'
+/* import axios from 'axios' */
 import { v4 as uuid } from 'uuid'
 import { createUser } from '../../services/userService';
 import { addFollow } from '../../services/followingService';
@@ -30,10 +30,8 @@ const Profile = () => {
  }; */
  const handleFollowClick = async () => {
   try {
-    
     const newUser = await createUser({ name: userData.name });
 
-    
     const response = await addFollow(newUser);
     console.log('Datos enviados con éxito:', response);
   } catch (error) {
