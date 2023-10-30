@@ -12,14 +12,17 @@ const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (username === 'team_CMKJ' && password === '12345') {
-
+    if (username === 'cris_123' && password === 'cris1234') {
       navigate('/');
     } else {
       Swal.fire({
         icon: 'error',
-        title: 'Credenciales incorrectas',
-        text: 'Por favor, inténtalo de nuevo.',
+        title: 'Incorrect Credentials',
+        text: 'Please try again.',
+        confirmButtonColor: '#FF7674',
+        customClass: {
+          confirmButton: 'custom-button-width',
+        }
       });
     }
   };
@@ -30,19 +33,19 @@ const SignIn = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Nombre de usuario"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
           type="password"
-          placeholder="Contraseña"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit">Sign In</button>
       </form>
-      <p>No tienes una cuenta? <Link to="/sign-up">Regístrate</Link></p>
+      <p>Do not have an account? <Link to="/sign-up">Sign Up</Link></p>
     </div>
   );
 };

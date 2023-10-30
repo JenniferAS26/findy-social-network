@@ -27,7 +27,7 @@
         border: 1px solid #dcdcdc;
         }
         input:focus {
-            outline: none;
+            outline: 2px solid #FF7674;
         }
 
         button {
@@ -46,8 +46,10 @@
         margin-top: 20px;
 
         a {
+        font-weight: bold;
         text-decoration: none;
         color: #FF7674;
         }
     }
     }
+    
