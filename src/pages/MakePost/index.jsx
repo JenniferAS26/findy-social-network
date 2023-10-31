@@ -19,6 +19,7 @@ import { FaCamera } from 'react-icons/fa6'
 import { BsSearch } from 'react-icons/bs'
 
 import './styles.sass'
+import { saveImage } from '../../services/userService'
 
 const MakePost = () => {
   const [ file, setFile ] = useState( postFile ) 
@@ -26,8 +27,15 @@ const MakePost = () => {
   const { register, handleSubmit } = useForm()
 
   const handleFileChange = ( event ) => {
-    const selectedFile = event.target.files[0]
-    setFile(URL.createObjectURL(selectedFile))
+    const chosenFile = event.target.files[0]
+    const imageReaderAPI = new FileReader()
+    imageReaderAPI.onloadend = () => {
+      setFile(imageReaderAPI.result)
+    }
+    
+    if (chosenFile) {
+      imageReaderAPI.readAsDataURL(chosenFile)
+    }
   }
 
   const nextStep = () => {
@@ -38,8 +46,14 @@ const MakePost = () => {
     writeCaptionContainer.style.display = 'grid'
   }
 
-  const onSubmit = ( postDetail ) => {
-    console.log(postDetail)
+  const onSubmit = async ( postDetail ) => {
+    const media = postDetail.postUrl[0]
+    const fileUrl = await saveImage(media)
+    const post = {
+      ...postDetail,
+      postUrl: fileUrl
+    }
+    console.log(post)
   }
 
   return (
