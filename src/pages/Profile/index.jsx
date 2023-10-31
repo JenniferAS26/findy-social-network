@@ -29,7 +29,7 @@ const Profile = () => {
   try {
     const updatedUserData = {
       ...userData,
-      followId: userData.followId || uuid()
+    /*   followId: userData.followId || uuid() */
     };
 
     const response = await addFollow(updatedUserData);
