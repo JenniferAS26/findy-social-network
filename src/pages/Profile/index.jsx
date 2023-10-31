@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from 'react'
-/* import axios from 'axios' */
 import { v4 as uuid } from 'uuid'
-import { createUser } from '../../services/userService';
 import { addFollow } from '../../services/followingService';
 import Card from "../../components/Card";
 import Gallery from "../../components/Gallery";
@@ -17,9 +15,8 @@ const Profile = () => {
   const [userData, setUserData] = useState({
     name:'Jennie Kim',
     username: '',
-    followId: ''
+    followId: uuid()
   });
-
   /* const handleFollowClick = async () => {
     try {
       const response = await axios.post('https://findy-app-service.onrender.com/users', userData);
@@ -30,15 +27,19 @@ const Profile = () => {
  }; */
  const handleFollowClick = async () => {
   try {
-    const newUser = await createUser({ name: userData.name });
+    const updatedUserData = {
+      ...userData,
+    /*   followId: userData.followId || uuid() */
+    };
 
-    const response = await addFollow(newUser);
+    const response = await addFollow(updatedUserData);
     console.log('Datos enviados con éxito:', response);
+
+    setUserData(updatedUserData);
   } catch (error) {
     console.error('Error al enviar los datos:', error);
   }
 };
-
 
   return (
     <section className="Profile-container-page">
