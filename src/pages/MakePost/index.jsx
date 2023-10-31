@@ -19,6 +19,7 @@ import thumbnail11 from '../../assets/images/post-11.jpeg'
 import profilePicture from '../../assets/images/profile-picture.svg'
 import { addPost } from '../../services/postsService'
 import { saveImage } from '../../services/userService'
+import { v4 as uuid } from 'uuid'
 
 import './styles.sass'
 
@@ -54,7 +55,8 @@ const MakePost = () => {
     const fileUrl = await saveImage(media)
     const post = {
       ...postDetail,
-      postUrl: fileUrl
+      postUrl: fileUrl,
+      postId: uuid()
     }
     // console.log(post)
     await addPost(post)
