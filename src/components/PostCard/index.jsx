@@ -8,7 +8,7 @@ import comment from '../../assets/icons/commets.svg'
 import share from '../../assets/icons/share.svg'
 import './styles.sass'
 
-const PostCard = ({ data }) => {
+const PostCard = ({ details }) => {
   PostCard.propTypes = {
     data: PropTypes.object
   }
@@ -29,7 +29,7 @@ const PostCard = ({ data }) => {
         </span>
       </div>
       <div className='post-card__media-container' onClick={() => goToPost()}>
-        <img src={post} alt='post content' />
+        <img src={details.postUrl} alt='post content' />
       </div>
       <div className='post-card__icons'>
         <div className='post-card__icons--reaction'>
@@ -49,7 +49,7 @@ const PostCard = ({ data }) => {
         <img className='save' src={save} alt='label icon' />
       </div>
       <div className='post-card__description'>
-        <p className='post-card__description--text'><span className='username' onClick={() => goToUserProfile()}>username</span> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores omnis consequuntur eius iure, voluptatum, nobis laborum doloremque deserunt consequatur animi, ad aliquid ullam debitis cupiditate quisquam dolorem distinctio perspiciatis rerum!</p>
+        <p className='post-card__description--text'><span className='username' onClick={() => goToUserProfile()}>username</span> {details.description}</p>
       </div>
     </article>
   )
