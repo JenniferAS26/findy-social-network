@@ -43,7 +43,7 @@ const MyAccount = () => {
         >
           Edit profile
         </button>
-        <button className='my-account__buttons-container--button share'>Share profile</button>
+        <button className='my-account__buttons-container--button share'>Delete profile</button>
       </div>
       <div className='my-account__stories'>
         <div className='my-account__stories--story'>
