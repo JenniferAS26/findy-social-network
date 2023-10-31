@@ -7,6 +7,7 @@
     width: 100%
     height: 100%
     display: grid
+    // display: none
     gap: 10px
   &__top
     width: 100%
@@ -56,7 +57,81 @@
     &--choose
       width: 95px
       height: 95px
+      position: relative
+      display: grid
+      align-items: center
+      justify-items: center
+      .input-file
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 0
+        left: 0
+        opacity: 0
+      .icon
+        width: 60px
+        height: 60px
+        background-color: $color-1
+        border-radius: 50%
+        display: grid
+        place-content: center
+        font-size: 3rem
+        color: #FFFFFF
     &--image
       width: 100%
       height: 100%
       object-fit: cover
+  .second-step
+    display: none
+  .caption-container
+    width: 100%
+    height: 80px
+    padding: 0 10px
+    display: grid
+    grid-template-columns: 40px 1fr
+    align-items: center
+    &__image
+      width: 30px
+      height: 30px
+      object-fit: cover
+      border-radius: 50%
+      justify-self: center
+    &__input
+      width: 100%
+      height: 40px
+      background-color: rgba($color-5, 0.4)
+      border-radius: 10px
+      border-width: 1px 
+      border-top-color: transparent
+      border-left-color: transparent
+      border-right-color: transparent
+      border-bottom-color: $secondary-text-color
+      padding-left: 15px
+      font-size: 1.6rem
+      color: $secondary-text-color
+      letter-spacing: 0.5px
+      &:focus
+        outline: none
+        border-width: 2px 
+        border-bottom-color: $color-1
+  .location, .tag-people
+    width: 100%
+    height: 90px
+    display: grid
+    align-items: center
+    padding: 0 10px
+    &__title
+      font-size: 1.7rem
+    &__places
+      width: 100%
+      @include flexCenter(row, space-between, center)
+      &--label
+        cursor: pointer
+        padding: 5px 10px
+        background-color: rgba($color-4, 0.3)
+        border-radius: 5px
+        @include flexCenter(row, center, center)
+        gap: 5px
+        font-size: 1.2rem
+      .input-radio
+        opacity: 0
