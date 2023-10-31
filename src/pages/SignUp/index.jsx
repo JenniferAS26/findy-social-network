@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 as uuid } from 'uuid'
 import { Link, useNavigate } from 'react-router-dom';
 import './styles.scss';
 import flechitaIcon from '../../assets/icons/flechita.png';
@@ -26,7 +27,7 @@ const SignUpForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value, userId: uuid() });
   };
 
   const isStepValid = () => {
