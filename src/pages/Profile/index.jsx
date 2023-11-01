@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
-import { addFollow, getFollowingByParams } from "../../services/followingService";
+import { addFollow, getFollowingByParams, removeFollow } from "../../services/followingService";
 import Card from "../../components/Card";
 import Gallery from "../../components/Gallery";
 import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
@@ -18,6 +18,7 @@ const Profile = () => {
     name: "Jennie Kim",
     username: "",
     followId: uuid(),
+    isFollowing: false,
   });
   /* const handleFollowClick = async () => {
     try {
@@ -29,17 +30,31 @@ const Profile = () => {
  }; */
   const handleFollowClick = async () => {
     try {
-      const updatedUserData = {
-        ...userData,
-        /*   followId: userData.followId || uuid() */
-      };
+      if (!userData.isFollowing) {
+        const updatedUserData = {
+          ...userData,
+        };
 
-      const response = await addFollow(updatedUserData);
-      console.log("Datos enviados con éxito:", response);
+        const response = await addFollow(updatedUserData);
+        console.log("Datos enviados con éxito:", response);
 
-      setUserData(updatedUserData);
+        setUserData({ ...updatedUserData, isFollowing: true });
+      } else {
+        handleUnfollowClick();
+      }
     } catch (error) {
       console.error("Error al enviar los datos:", error);
+    }
+  };
+
+  const handleUnfollowClick = async () => {
+    try {
+      const response = await removeFollow(userData.followId);
+      console.log("Datos eliminados con éxito:", response);
+      
+      setUserData({ ...userData, isFollowing: false });
+    } catch (error) {
+      console.error("Error al eliminar los datos:", error);
     }
   };
 
@@ -84,9 +99,15 @@ const Profile = () => {
           <h6>{profileContent[0]?.bio}</h6>
         </div>
         <div className="Profile-contianer-page__inside__follow-massages">
-          <button className="follow" onClick={handleFollowClick}>
-            Follow
-          </button>
+          {userData.isFollowing ? (
+            <button className="unfollow" onClick={handleUnfollowClick}>
+              Unfollow
+            </button>
+          ) : (
+            <button className="follow" onClick={handleFollowClick}>
+              Follow
+            </button>
+          )}
           <button className="messages">Messages</button>
         </div>
         <Gallery>
