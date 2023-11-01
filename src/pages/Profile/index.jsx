@@ -112,11 +112,11 @@ const Profile = () => {
         </div>
         <Gallery>
           <Card />
-          {
+         {/*  {
             profileContent.map((user, index) => (
               <Card key={index} />
             ))
-          }
+          } */}
         </Gallery>
       </div>
     </section>
