@@ -85,7 +85,7 @@ const Profile = () => {
             <h5>Followers</h5>
           </article>
           <article className="image-center">
-            <img style={{width: '76px', height: '76px', objectFit: 'cover'}} className="image" src={profileContent[0]?.userPhoto} alt="imagen" />
+            <img /* style={{width: '76px', height: '76px', objectFit: 'cover'}} */ className="image" src={profileContent[0]?.userPhoto} alt="imagen" />
             <img className="circle" src={ImageEllipse3} alt="icono" />
           </article>
           <article className="likes">

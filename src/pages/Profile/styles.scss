@@ -36,7 +36,7 @@
       }
     }
     .Profile-contianer-page__inside__followers{
-      width: 100%;
+      width: 89%;
       height: 34px;
       display: grid;
       @include flexCenter (row, center, right);      
@@ -49,6 +49,7 @@
         display: grid;
         margin-left: 41px;
         justify-content: center;
+        text-align: center;
         .h3{
           width: 48px;
           height: 19px;
@@ -60,7 +61,7 @@
           justify-content: space-around;
          /*  margin-left: 10px; */
         }
-        h5{
+        .h5{
           width: 61px;
           height: 14px;
           display: grid;
@@ -79,23 +80,28 @@
         justify-content: flex-end;
         justify-content: space-around;
         .image{
+           width: 76px;
+           height: 76px;
            border-radius: 50%;
            margin-top: -45px;
+           object-fit: cover;
         }
         .circle{
-          margin-top: -99px;
+          width: 76px;
+          height: 76px;
+          margin-top: -98px;
+          object-fit: cover;
         }
       } 
       .likes{
         width: 79px;
         height: 29px;
         display: grid;
-        margin-left: 41px;
+        /* margin-left: 41px; */
         justify-content: center;
-        justify-items: start;
-        align-items: center;
         align-content: space-evenly;
         font-family: $font-source;
+        text-align: center;
         .h3{
           width: 48px;
           height: 19px;
@@ -106,7 +112,7 @@
           font-weight: 700;
           margin-top: 20px;
         }
-        h5{
+        .h5{
           width: 61px;
           height: 14px;
           display: grid;
@@ -120,40 +126,42 @@
       } 
     }
     .Profile-contianer-page__inside__jennie-kim{
-      width: 245px;
-      height: 59px;
+      width: 100%;
+      height: 100%;
       display: grid;
       justify-content: center;
-      margin-left: 86px;
-      h4{
-        width: 81px;
+      text-align: center;
+     h4{
+        width: 100%;
         height: 10px;
         color: $primary-text-color;
         font-family: $font-source;
-        font-size: 14px;
+        font-size: 10px;
         font-weight: 700;
-        margin-left: 36px;
+        display: grid;
+        justify-content: center;
+       
       }
-      h5{
-        width: 81px;
+       h5{
+        width: 100%;
         height: 8px;
         color: $primary-text-color;
         font-family: $font-source;
-        font-size: 9px;
+        font-size: 10px;
         font-weight: 700;
-        margin-left: 48px;
-        /* align-items: center; */
-        margin-top: 4px;
+        display: grid;
+        justify-content: center;
       }
       h6{
-        width: 150px;
+        width: 100%;
         height: 16px;
         color: $primary-text-color;
         font-family: $font-source;
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 600;
-        margin-left: 4px;
-      }
+        display: grid;
+        justify-content: center;
+      } 
     }
     .Profile-contianer-page__inside__follow-massages {
       width: 394px;
