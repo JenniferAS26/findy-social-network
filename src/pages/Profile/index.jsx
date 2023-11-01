@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { useState } from 'react'
-import { v4 as uuid } from 'uuid'
-import { addFollow } from '../../services/followingService';
+import { useState } from "react";
+import { v4 as uuid } from "uuid";
+import { addFollow, removeFollow } from "../../services/followingService";
 import Card from "../../components/Card";
 import Gallery from "../../components/Gallery";
 import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
@@ -11,11 +11,11 @@ import ImageSlide from "../../assets/icons/back.svg";
 import "./styles.scss";
 
 const Profile = () => {
-
   const [userData, setUserData] = useState({
-    name:'Jennie Kim',
-    username: '',
-    followId: uuid()
+    name: "Jennie Kim",
+    username: "",
+    followId: uuid(),
+    isFollowing: false,
   });
   /* const handleFollowClick = async () => {
     try {
@@ -25,21 +25,35 @@ const Profile = () => {
       console.error('Error al enviar los datos:', error);
     }
  }; */
- const handleFollowClick = async () => {
-  try {
-    const updatedUserData = {
-      ...userData,
-    /*   followId: userData.followId || uuid() */
-    };
+  const handleFollowClick = async () => {
+    try {
+      if (!userData.isFollowing) {
+        const updatedUserData = {
+          ...userData,
+        };
 
-    const response = await addFollow(updatedUserData);
-    console.log('Datos enviados con éxito:', response);
+        const response = await addFollow(updatedUserData);
+        console.log("Datos enviados con éxito:", response);
 
-    setUserData(updatedUserData);
-  } catch (error) {
-    console.error('Error al enviar los datos:', error);
-  }
-};
+        setUserData({ ...updatedUserData, isFollowing: true });
+      } else {
+        handleUnfollowClick();
+      }
+    } catch (error) {
+      console.error("Error al enviar los datos:", error);
+    }
+  };
+
+  const handleUnfollowClick = async () => {
+    try {
+      const response = await removeFollow(userData.followId);
+      console.log("Datos eliminados con éxito:", response);
+
+      setUserData({ ...userData, isFollowing: false });
+    } catch (error) {
+      console.error("Error al eliminar los datos:", error);
+    }
+  };
 
   return (
     <section className="Profile-container-page">
@@ -70,7 +84,15 @@ const Profile = () => {
           <h6>Follow me and like my post</h6>
         </div>
         <div className="Profile-contianer-page__inside__follow-massages">
-          <button className="follow" onClick={handleFollowClick}>Follow</button>
+          {userData.isFollowing ? (
+            <button className="unfollow" onClick={handleUnfollowClick}>
+              Unfollow
+            </button>
+          ) : (
+            <button className="follow" onClick={handleFollowClick}>
+              Follow
+            </button>
+          )}
           <button className="messages">Messages</button>
         </div>
         <Gallery>
