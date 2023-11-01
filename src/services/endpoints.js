@@ -5,5 +5,6 @@ export const endpoints = {
   users: `${BASE_URL}/users`,
   following: `${BASE_URL}/following`,
   posts: `${BASE_URL}/posts`,
-  cloudinary: CLOUDINARY_URL
+  cloudinary: CLOUDINARY_URL,
+  comments: `${BASE_URL}/comments`, 
 }

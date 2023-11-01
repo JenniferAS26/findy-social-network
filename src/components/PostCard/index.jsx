@@ -14,7 +14,7 @@ const PostCard = ({ details }) => {
 
   const navigate = useNavigate()
 
-  const goToUserProfile = () => navigate('/user-profile')
+  const goToUserProfile = () => navigate(`/user-profile/${details.userId}`)
   const goToPost = () => navigate(`/post-detail/${details.postId}`)
 
   return (

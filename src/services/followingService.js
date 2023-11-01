@@ -18,6 +18,15 @@ const getFollowing = async ( id = '' ) => {
   }
 }
 
+const getFollowingByParams = async ( params ) => {
+  try {
+    const { data } = await axios.get(endpoints.following, { params: params })
+    return data
+  } catch (error) {
+    console.warn(error)
+  }
+}
+
 const removeFollow = async ( id ) => {
   try {
     await axios.delete(endpoints.following, id)
@@ -29,5 +38,6 @@ const removeFollow = async ( id ) => {
 export {
   addFollow,
   getFollowing,
+  getFollowingByParams,
   removeFollow
 }
