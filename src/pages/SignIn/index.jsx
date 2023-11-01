@@ -22,7 +22,7 @@ const SignIn = () => {
       if (users.length > 0) {
         const user = users[0];
         if (user.password === password) {
-          navigate('/');
+          navigate(`/${user.username}`);
         } else {
           Swal.fire({
             icon: 'error',
