@@ -15,9 +15,9 @@ const Profile = () => {
   console.log(id)
   const [profileContent, setProfileContent] = useState([])
   const [userData, setUserData] = useState({
-    name: "Jennie Kim",
+    name: "",
     username: "",
-    followId: uuid(),
+    id: uuid(),
     isFollowing: false,
   });
   /* const handleFollowClick = async () => {
@@ -49,7 +49,7 @@ const Profile = () => {
 
   const handleUnfollowClick = async () => {
     try {
-      const response = await removeFollow(userData.followId);
+      const response = await removeFollow(userData.id);
       console.log("Datos eliminados con éxito:", response);
       
       setUserData({ ...userData, isFollowing: false });
