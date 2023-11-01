@@ -4,8 +4,8 @@ import { v4 as uuid } from "uuid";
 import { addFollow, getFollowingByParams, removeFollow } from "../../services/followingService";
 import Card from "../../components/Card";
 import Gallery from "../../components/Gallery";
-import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
-import ImageUhPaper from "../../assets/images/jennie-blackpink-uhdpaper.com-hd-4 1.png";
+/* import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
+import ImageUhPaper from "../../assets/images/jennie-blackpink-uhdpaper.com-hd-4 1.png"; */
 import ImageEllipse3 from "../../assets/icons/Ellipse 3.svg";
 import ImageSlide from "../../assets/icons/back.svg";
 import "./styles.scss";
@@ -111,12 +111,12 @@ const Profile = () => {
           <button className="messages">Messages</button>
         </div>
         <Gallery>
-          <Card />
-         {/*  {
+        {/*   <Card /> */}
+          {
             profileContent.map((user, index) => (
               <Card key={index} />
             ))
-          } */}
+          }
         </Gallery>
       </div>
     </section>
