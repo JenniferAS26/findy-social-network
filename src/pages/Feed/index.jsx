@@ -1,10 +1,10 @@
+import { useCallback, useEffect, useState } from 'react'
+import { getPost } from '../../services/postsService'
 import Header from '../../components/Header'
 import Status from '../../components/Status'
 import Posts from '../../components/Posts'
-import './styles.sass'
 import PostCard from '../../components/PostCard'
-import { useCallback, useEffect, useState } from 'react'
-import { getPost } from '../../services/postsService'
+import './styles.sass'
 
 const Feed = () => {
   const [posts, setPosts] = useState([])
@@ -28,8 +28,6 @@ const Feed = () => {
             <PostCard key={index} details={post} />
           ))
         }
-        {/* <PostCard />
-        <PostCard /> */}
       </Posts>
     </main>
   )
