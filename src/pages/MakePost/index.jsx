@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom' 
+import { Link, useNavigate, useParams } from 'react-router-dom' 
 import { useForm } from 'react-hook-form'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaCamera } from 'react-icons/fa6'
@@ -24,6 +24,8 @@ import { v4 as uuid } from 'uuid'
 import './styles.sass'
 
 const MakePost = () => {
+  const { username } = useParams()
+  console.log(username)
   const [ file, setFile ] = useState({
     name: postFile,
     type: 'image/jpeg'
@@ -56,11 +58,12 @@ const MakePost = () => {
     const post = {
       ...postDetail,
       urlContent: fileUrl,
+      username,
       postId: uuid()
     }
     // console.log(post)
     await addPost(post)
-    navigate('/')
+    navigate(`/${username}`)
   }
 
   return (

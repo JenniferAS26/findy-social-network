@@ -20,8 +20,6 @@ const SignIn = () => {
       console.log('Username:', username);
       const users = await getUserByParams({ username });
 
-      console.log('User:', users);
-
       if (users.length > 0) {
         const user = users[0];
         if (user.password === password) {
