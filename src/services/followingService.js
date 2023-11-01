@@ -28,8 +28,9 @@ const getFollowingByParams = async ( params ) => {
 }
 
 const removeFollow = async ( id ) => {
+  console.log('removeFollow',id);
   try {
-    await axios.delete(endpoints.following, id)
+    await axios.delete(`${endpoints.following}/${id}`)
   } catch (error) {
     console.warn(error)
   }
