@@ -51,11 +51,11 @@ const MakePost = () => {
   }
 
   const onSubmit = async ( postDetail ) => {
-    const media = postDetail.postUrl[0]
+    const media = postDetail.urlContent[0]
     const fileUrl = await saveImage(media)
     const post = {
       ...postDetail,
-      postUrl: fileUrl,
+      urlContent: fileUrl,
       postId: uuid()
     }
     // console.log(post)
@@ -97,8 +97,8 @@ const MakePost = () => {
               className='input-file' 
               type='file'
               accept='image/*, video/*' 
-              name='postUrl' 
-              { ...register('postUrl') }
+              name='urlContent' 
+              { ...register('urlContent') }
               onChange={handleFileChange}
             />
             <div className='icon'>

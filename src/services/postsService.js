@@ -18,6 +18,15 @@ const getPost = async ( id = '' ) => {
   }
 }
 
+const getPostByParams = async ( params ) => {
+  try {
+    const { data } = await axios.get(endpoints.posts, { params: params })
+    return data
+  } catch (error) {
+    console.warn(error)
+  }
+}
+
 const deletePost = async ( id ) => {
   try {
     await axios.delete(endpoints.posts, id)
@@ -29,5 +38,6 @@ const deletePost = async ( id ) => {
 export {
   addPost,
   getPost,
+  getPostByParams,
   deletePost
 }

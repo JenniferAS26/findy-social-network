@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 import contactPhoto from '../../assets/images/image-1.svg'
-import post from '../../assets/images/post-image.svg'
 import save from '../../assets/icons/save.svg'
 import like from '../../assets/icons/like.svg'
 import comment from '../../assets/icons/commets.svg'
@@ -10,13 +9,13 @@ import './styles.sass'
 
 const PostCard = ({ details }) => {
   PostCard.propTypes = {
-    data: PropTypes.object
+    details: PropTypes.object
   }
 
   const navigate = useNavigate()
 
   const goToUserProfile = () => navigate('/user-profile')
-  const goToPost = () => navigate('/post-detail')
+  const goToPost = () => navigate(`/post-detail/${details.postId}`)
 
   return (
     <article
@@ -25,11 +24,11 @@ const PostCard = ({ details }) => {
       <div className='post-card__contact-info'>
         <img src={contactPhoto} alt='contact photo' />
         <span onClick={() => goToUserProfile()}>
-          username
+          {details.username}
         </span>
       </div>
       <div className='post-card__media-container' onClick={() => goToPost()}>
-        <img src={details.postUrl} alt='post content' />
+        <img src={details.urlContent} alt='post content' />
       </div>
       <div className='post-card__icons'>
         <div className='post-card__icons--reaction'>
@@ -49,7 +48,7 @@ const PostCard = ({ details }) => {
         <img className='save' src={save} alt='label icon' />
       </div>
       <div className='post-card__description'>
-        <p className='post-card__description--text'><span className='username' onClick={() => goToUserProfile()}>username</span> {details.description}</p>
+        <p className='post-card__description--text'><span className='username' onClick={() => goToUserProfile()}>{details.username}</span> {details.description}</p>
       </div>
     </article>
   )

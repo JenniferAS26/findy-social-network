@@ -15,7 +15,7 @@ const AppRoutes = () => {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Feed />} />
-        <Route path='post-detail' element={<PostDetail />} />
+        <Route path='post-detail/:id' element={<PostDetail />} />
         <Route path='search' element={<SearchContent />} />
         <Route path='profile' element={<MyAccount />} />
       </Route>

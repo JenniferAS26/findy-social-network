@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import profilePicture from '../../assets/images/status-1.svg'
 import like from '../../assets/icons/heart.svg'
@@ -5,7 +6,11 @@ import comment from '../../assets/icons/commets.svg'
 import share from '../../assets/icons/share.svg'
 import './styles.sass'
 
-const FloatingCard = () => {
+const FloatingCard = ({ postDetails }) => {
+  FloatingCard.propTypes = {
+    postDetails: PropTypes.array
+  }
+
   return (
     <div className='floating-card'>
       <div className='floating-card__photo-name'>
@@ -14,7 +19,7 @@ const FloatingCard = () => {
           className='floating-card__photo-name--name'
           to='/user-profile'
         >
-          Username
+          {postDetails[0]?.username}
         </Link>
       </div>
       <div className='floating-card__reactions'>
