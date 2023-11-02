@@ -29,7 +29,7 @@ const getUserByParams = async ( params ) => {
 
 const updateUser = async ( id, body ) => {
   try {
-    await axios.patch(endpoints.users, id, body)
+    await axios.patch(`${endpoints.users}/${id}`, body)
   } catch (error) {
     console.warn(error)
   }
