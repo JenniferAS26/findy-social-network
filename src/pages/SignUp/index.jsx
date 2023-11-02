@@ -16,6 +16,10 @@ const SignUpForm = () => {
     username: '',
     email: '', 
     phoneNumber: '',
+    gender: '',
+    bio: '',
+    pronouns: '',
+    urlImage: ''
   });
 
   const handleNextStep = () => {
@@ -44,7 +48,7 @@ const SignUpForm = () => {
       case 5:
         return formData.email.trim() !== '' && /\S+@\S+\.\S+/.test(formData.email);
       case 6:
-        return formData.phoneNumber.trim() !== '' && /^[1-9]*$/.test(formData.phoneNumber);
+        return formData.phoneNumber.trim() !== '' && /^[0-9]*$/.test(formData.phoneNumber);
       default:
         return true;
     }
@@ -190,7 +194,7 @@ const SignUpForm = () => {
               placeholder="Mobile number"
               value={formData.phoneNumber}
               onChange={handleChange}
-              pattern="[1-9]*"
+              pattern="[0-9]*"
               required
             />
             <p>We may send you SMS notifications for security and login purposes.</p>

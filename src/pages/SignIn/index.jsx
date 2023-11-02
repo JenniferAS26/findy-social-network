@@ -1,14 +1,17 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './styles.scss';
 import Swal from 'sweetalert2';
 import logo from '../../assets/icons/logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { getUserByParams } from '../../services/userService.js';
+import { AuthContext } from '../../auth/context/AuthContext';
 
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  const { login } = useContext( AuthContext )
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,12 +21,11 @@ const SignIn = () => {
 
       const users = await getUserByParams({ username });
 
-      console.log('User:', users);
-
       if (users.length > 0) {
         const user = users[0];
         if (user.password === password) {
-          navigate('/');
+          login(username, password)
+          navigate(`/${user.username}`);
         } else {
           Swal.fire({
             icon: 'error',

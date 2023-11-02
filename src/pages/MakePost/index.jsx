@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom' 
+import { Link, useNavigate, useParams } from 'react-router-dom' 
 import { useForm } from 'react-hook-form'
 import { AiOutlineClose } from 'react-icons/ai'
+import { FaCamera } from 'react-icons/fa6'
+import { BsSearch } from 'react-icons/bs'
 import postFile from '../../assets/images/post-0.jpeg'
 import thumbnail1 from '../../assets/images/post-1.jpeg'
 import thumbnail2 from '../../assets/images/post-2.jpeg'
@@ -15,27 +17,31 @@ import thumbnail9 from '../../assets/images/post-9.jpeg'
 import thumbnail10 from '../../assets/images/post-10.jpeg'
 import thumbnail11 from '../../assets/images/post-11.jpeg'
 import profilePicture from '../../assets/images/profile-picture.svg'
-import { FaCamera } from 'react-icons/fa6'
-import { BsSearch } from 'react-icons/bs'
+import { addPost } from '../../services/postsService'
+import { saveImage } from '../../services/userService'
+import { v4 as uuid } from 'uuid'
 
 import './styles.sass'
-import { saveImage } from '../../services/userService'
 
 const MakePost = () => {
-  const [ file, setFile ] = useState( postFile ) 
+  const { username } = useParams()
+  console.log(username)
+  const [ file, setFile ] = useState({
+    name: postFile,
+    type: 'image/jpeg'
+  }) 
 
   const { register, handleSubmit } = useForm()
 
+  const navigate = useNavigate()
+
   const handleFileChange = ( event ) => {
     const chosenFile = event.target.files[0]
-    const imageReaderAPI = new FileReader()
-    imageReaderAPI.onloadend = () => {
-      setFile(imageReaderAPI.result)
-    }
-    
-    if (chosenFile) {
-      imageReaderAPI.readAsDataURL(chosenFile)
-    }
+    setFile({
+      name:URL.createObjectURL(chosenFile),
+      type: chosenFile.type
+    })
+
   }
 
   const nextStep = () => {
@@ -47,13 +53,17 @@ const MakePost = () => {
   }
 
   const onSubmit = async ( postDetail ) => {
-    const media = postDetail.postUrl[0]
+    const media = postDetail.urlContent[0]
     const fileUrl = await saveImage(media)
     const post = {
       ...postDetail,
-      postUrl: fileUrl
+      urlContent: fileUrl,
+      username,
+      postId: uuid()
     }
-    console.log(post)
+    // console.log(post)
+    await addPost(post)
+    navigate(`/${username}`)
   }
 
   return (
@@ -78,7 +88,11 @@ const MakePost = () => {
           </button>
         </section>
         <section className='make-post__post-container'>
-          <img className='make-post__post-container--post' src={file} alt='' />
+          {
+            file.type.split('/')[0] === 'image'
+            ? <img className='make-post__post-container--post' src={file.name} alt='' />
+            : <video className='make-post__post-container--post' src={file.name} autoPlay controls></video>
+          }
         </section>
         <section className='make-post__recents'>
           <div className='make-post__recents--choose'>
@@ -86,8 +100,8 @@ const MakePost = () => {
               className='input-file' 
               type='file'
               accept='image/*, video/*' 
-              name='postUrl' 
-              { ...register('postUrl') }
+              name='urlContent' 
+              { ...register('urlContent') }
               onChange={handleFileChange}
             />
             <div className='icon'>
@@ -123,8 +137,8 @@ const MakePost = () => {
             className='caption-container__input' 
             type='text' 
             placeholder='Write a caption...' 
-            name='caption'
-            { ...register('caption') }
+            name='description'
+            { ...register('description') }
           />
         </section>
         <section className='location'>

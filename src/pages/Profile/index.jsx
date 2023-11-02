@@ -1,25 +1,27 @@
-import { Link } from "react-router-dom";
-import { useState } from 'react'
-/* import axios from 'axios' */
-import { v4 as uuid } from 'uuid'
-import { createUser } from '../../services/userService';
-import { addFollow } from '../../services/followingService';
+import { Link, useParams } from "react-router-dom";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
+import { addFollow, getFollowingByParams, removeFollow } from "../../services/followingService";
 import Card from "../../components/Card";
 import Gallery from "../../components/Gallery";
-import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
-import ImageUhPaper from "../../assets/images/jennie-blackpink-uhdpaper.com-hd-4 1.png";
+/* import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
+import ImageUhPaper from "../../assets/images/jennie-blackpink-uhdpaper.com-hd-4 1.png"; */
 import ImageEllipse3 from "../../assets/icons/Ellipse 3.svg";
 import ImageSlide from "../../assets/icons/back.svg";
 import "./styles.scss";
+import { AuthContext } from "../../auth/context/AuthContext";
 
 const Profile = () => {
-
+  const { user } = useContext( AuthContext )
+  const { followerId } = useParams()
+  console.log(followerId)
+  const [profileContent, setProfileContent] = useState([])
   const [userData, setUserData] = useState({
-    name:'Jennie Kim',
-    username: '',
-    followId: ''
+    name: "",
+    username: "",
+    id: uuid(),
+    isFollowing: false,
   });
-
   /* const handleFollowClick = async () => {
     try {
       const response = await axios.post('https://findy-app-service.onrender.com/users', userData);
@@ -28,48 +30,86 @@ const Profile = () => {
       console.error('Error al enviar los datos:', error);
     }
  }; */
- const handleFollowClick = async () => {
-  try {
-    const newUser = await createUser({ name: userData.name });
+  const handleFollowClick = async () => {
+    try {
+      if (!userData.isFollowing) {
+        const updatedUserData = {
+          ...userData,
+        };
 
-    const response = await addFollow(newUser);
-    console.log('Datos enviados con éxito:', response);
-  } catch (error) {
-    console.error('Error al enviar los datos:', error);
-  }
-};
+        const response = await addFollow(updatedUserData);
+        console.log("Datos enviados con éxito:", response);
 
+        setUserData({ ...updatedUserData, isFollowing: true });
+      } else {
+        handleUnfollowClick();
+      }
+    } catch (error) {
+      console.error("Error al enviar los datos:", error);
+    }
+  };
+
+  const handleUnfollowClick = async () => {
+    try {
+      const response = await removeFollow(userData.id);
+      console.log("Datos eliminados con éxito:", response);
+      
+      setUserData({ ...userData, isFollowing: false });
+    } catch (error) {
+      console.error("Error al eliminar los datos:", error);
+    }
+  };
+
+  const getFollowingInfo = useCallback(() => {
+    getFollowingByParams({ followerId })
+      .then(response => {
+        console.log(response)
+        setProfileContent(response)
+      })
+  }, [])
+
+  useEffect(() => {
+    getFollowingInfo()
+  }, [getFollowingInfo])
 
   return (
     <section className="Profile-container-page">
       <div className="Profile-conatiner-page__inside">
         <header className="Profile-container-page__inside_header">
-          <img className="black" src={ImageBlackPink} alt="imagen" />
-          <Link className="slide" to="/">
+          <img className="black" src={profileContent[0]?.coverPhoto} alt="imagen" />
+          <Link className="slide" to={`/${user.username}`}>
             <img src={ImageSlide} alt="icono" />
           </Link>
         </header>
         <div className="Profile-contianer-page__inside__followers">
           <article className="followers">
-            <h3>10.7 M</h3>
+            <h3>{profileContent[0]?.followers} M</h3>
             <h5>Followers</h5>
           </article>
           <article className="image-center">
-            <img className="image" src={ImageUhPaper} alt="imagen" />
+            <img /* style={{width: '76px', height: '76px', objectFit: 'cover'}} */ className="image" src={profileContent[0]?.userPhoto} alt="imagen" />
             <img className="circle" src={ImageEllipse3} alt="icono" />
           </article>
           <article className="likes">
-            <h3>108.3 M</h3>
+            <h3>{profileContent[0]?.likes} M</h3>
             <h5>Likes</h5>
           </article>
         </div>
         <div className="Profile-contianer-page__inside__jennie-kim">
-          <h4>Jennie Kim</h4>
+          <h4>{profileContent[0]?.name}</h4>
           <h5>J.Hello Guys</h5>
-          <h6>Follow me and like my post</h6>
+          <h6>{profileContent[0]?.bio}</h6>
         </div>
         <div className="Profile-contianer-page__inside__follow-massages">
-          <button className="follow" onClick={handleFollowClick}>Follow</button>
+          {userData.isFollowing ? (
+            <button className="unfollow" onClick={handleUnfollowClick}>
+              Unfollow
+            </button>
+          ) : (
+            <button className="follow" onClick={handleFollowClick}>
+              Follow
+            </button>
+          )}
           <button className="messages">Messages</button>
         </div>
         <Gallery>

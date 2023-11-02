@@ -8,10 +8,17 @@
   grid-template-rows: 50px 100px 30px 50px 100px
   &__username
     font-size: 1.6rem
+    margin-left: 10px
   &__picture-stats
     width: 100%
     height: 100%
     @include flexCenter(row, space-between, center)
+    padding: 0 10px
+    &--image
+      width: 68px
+      height: 68px
+      object-fit: cover
+      border-radius: 50%
     &--numbers
       display: grid
       justify-items: center

@@ -1,4 +1,6 @@
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../auth/context/AuthContext'
 import profilePicture from '../../assets/images/profile-status.svg'
 import status1 from '../../assets/images/photo-1.jpg'
 import status2 from '../../assets/images/photo-2.jpg'
@@ -8,20 +10,34 @@ import status5 from '../../assets/images/photo-5.jpg'
 import MyGallery from '../../components/MyGallery'
 
 import './styles.sass'
+import { getUserByParams } from '../../services/userService'
 
 const MyAccount = () => {
+  const [userLogged, setUserLogged] = useState([])
+  const { user } = useContext( AuthContext )
   const navigate = useNavigate()
 
   const editAccount = () => {
-    navigate('/edit-account')
+    navigate(`/edit-account/${user.username}`)
   }
+  const getUserLogged = useCallback(() => {
+    getUserByParams({ username: user.username })
+      .then(response => {
+        setUserLogged(response[0])
+        console.log(response[0])
+      })
+  }, [])
+
+  useEffect(() => {
+    getUserLogged()
+  }, [getUserLogged])
 
 
   return (
     <main className='my-account'>
-      <h3 className='my-account__username'>user_name</h3>
+      <h3 className='my-account__username'>{userLogged.username}</h3>
       <div className='my-account__picture-stats'>
-        <img className='my-account__picture-stats--image' src={profilePicture} alt='profile picture' />
+        <img className='my-account__picture-stats--image' src={userLogged.urlImage} alt='profile picture' />
         <div className='my-account__picture-stats--numbers'>
           <h4 className='number-label'>1K</h4>
           <span className='category'>Posts</span>
@@ -35,7 +51,7 @@ const MyAccount = () => {
           <span className='category'>Following</span>
         </div>
       </div>
-      <span className='my-account__name'>Name</span>
+      <span className='my-account__name'>{userLogged.name}</span>
       <div className='my-account__buttons-container'>
         <button 
           className='my-account__buttons-container--button edit'

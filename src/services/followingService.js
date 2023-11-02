@@ -3,7 +3,7 @@ import { endpoints } from './endpoints'
 
 const addFollow = async ( body ) => {
   try {
-    await axios.post(endpoints.following, body)
+    await axios.post(endpoints.followerPost, body)
   } catch (error) {
     console.warn(error)
   }
@@ -18,9 +18,19 @@ const getFollowing = async ( id = '' ) => {
   }
 }
 
-const removeFollow = async ( id ) => {
+const getFollowingByParams = async ( params ) => {
   try {
-    await axios.delete(endpoints.following, id)
+    const { data } = await axios.get(endpoints.following, { params: params })
+    return data
+  } catch (error) {
+    console.warn(error)
+  }
+}
+
+const removeFollow = async ( id ) => {
+  console.log('removeFollow',id);
+  try {
+    await axios.delete(`${endpoints.followerPost}/${id}`)
   } catch (error) {
     console.warn(error)
   }
@@ -29,5 +39,6 @@ const removeFollow = async ( id ) => {
 export {
   addFollow,
   getFollowing,
+  getFollowingByParams,
   removeFollow
 }
