@@ -20,14 +20,7 @@ const Profile = () => {
     id: uuid(),
     isFollowing: false,
   });
-  /* const handleFollowClick = async () => {
-    try {
-      const response = await axios.post('https://findy-app-service.onrender.com/users', userData);
-      console.log('Datos enviados con éxito:', response.data);
-    } catch (error) {
-      console.error('Error al enviar los datos:', error);
-    }
- }; */
+
   const handleFollowClick = async () => {
     try {
       if (!userData.isFollowing) {
@@ -111,12 +104,12 @@ const Profile = () => {
           <button className="messages">Messages</button>
         </div>
         <Gallery>
-        {/*   <Card /> */}
-          {
+          <Card />
+      {/*     {
             profileContent.map((user, index) => (
               <Card key={index} />
             ))
-          }
+          } */}
         </Gallery>
       </div>
     </section>

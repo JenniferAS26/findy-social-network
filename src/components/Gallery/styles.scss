@@ -1,0 +1,52 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+
+.Contianer-Gallery{
+    width: 413px;
+    height: 474px;
+    display: grid;
+    background-color: $color-5;
+   /*  border: transparent; */
+    border-radius: 30px;
+    margin-top: 17px;
+    .Contianer-Gallery_header{
+      width: 369px;
+      height: 34px;
+      display: grid;
+      margin-top: 19px;
+      margin-left: 20px;
+      background-color: $color-5;
+      @include flexCenter(row, center, center);
+      column-gap: 55px; 
+      .Photos, .Videos, .album, .tag{
+        width: 50px;
+        height: 16px;
+        color: $primary-text-color;
+        font-family: $font-source;
+        font-size: 16px;
+        font-weight: 700;
+        background-color: $color-5;
+        text-decoration: none;
+        display: grid;
+        border: transparent;
+       /*  border-style: none; */
+        cursor: pointer;
+        &:hover{
+          opacity: 0.5;
+          text-decoration: underline;  
+          text-decoration-color: pink;
+          text-underline-offset: 3px; 
+        }
+      }
+    
+    }
+    .Contianer-Gallery_card{
+        width: 250px;
+        height: 381px;
+        display: grid;
+        position: relative;
+        margin-left: -10px;
+        margin-top: 40px;
+      }
+}
