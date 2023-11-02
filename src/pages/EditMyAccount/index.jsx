@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
-import { saveImage, updateUser } from '../../services/userService'
+import { getUserByParams, saveImage, updateUser } from '../../services/userService'
 import Swal from 'sweetalert2'
 import profilePicture from '../../assets/images/profile-status.svg'
 import './styles.sass'
 
 const EditMyAccount = () => {
+  const [userLogged, setUserLogged] = useState([])
   const [ imagePreview, setImagePreview ] = useState(profilePicture)
   const { register, handleSubmit } = useForm()
   const navigate = useNavigate()
@@ -37,7 +38,7 @@ const EditMyAccount = () => {
       gender: userInfo.gender,
       urlImage: imageUrl
     }
-    await updateUser(newUserInfo, { username })
+    await updateUser(userLogged.id, newUserInfo)
     const userUpdate = await Swal.fire({
       title: 'Your new info was updated successfully',
       confirmButtonText: 'Ok',
@@ -48,12 +49,23 @@ const EditMyAccount = () => {
       },
     })
     if (userUpdate.isConfirmed) {
-      navigate(`/${username}`)
+      navigate(-1)
     }
     console.log(newUserInfo)
   }
 
   // const goBack = () => navigate(`/profile/${username}`)
+  const getUserLogged = useCallback(() => {
+    getUserByParams({ username })
+      .then(response => {
+        setUserLogged(response[0])
+        console.log(response[0])
+      })
+  }, [])
+
+  useEffect(() => {
+    getUserLogged()
+  }, [getUserLogged])
 
   return (
     <main className='edit-account'>

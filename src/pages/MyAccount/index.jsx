@@ -37,7 +37,7 @@ const MyAccount = () => {
     <main className='my-account'>
       <h3 className='my-account__username'>{userLogged.username}</h3>
       <div className='my-account__picture-stats'>
-        <img className='my-account__picture-stats--image' src={profilePicture} alt='profile picture' />
+        <img className='my-account__picture-stats--image' src={userLogged.urlImage} alt='profile picture' />
         <div className='my-account__picture-stats--numbers'>
           <h4 className='number-label'>1K</h4>
           <span className='category'>Posts</span>
