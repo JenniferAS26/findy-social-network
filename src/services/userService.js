@@ -27,6 +27,15 @@ const getUserByParams = async ( params ) => {
   }
 }
 
+const getUserByEmailUsername = async (email, username) => {
+  try {
+    const { data } = await axios.get(endpoints.user(email, username))
+    return data.length ? data[0] : null
+  } catch (error) {
+    console.warn(error)
+  }
+}
+
 const updateUser = async ( id, body ) => {
   try {
     await axios.patch(`${endpoints.users}/${id}`, body)
@@ -68,6 +77,7 @@ export {
   createUser,
   getUser,
   getUserByParams,
+  getUserByEmailUsername,
   updateUser,
   updateUserByParams,
   deleteUser,
