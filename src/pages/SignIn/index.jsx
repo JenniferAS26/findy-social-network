@@ -14,7 +14,8 @@ const SignIn = () => {
     event.preventDefault();
 
     try {
-      console.log('Username:', username);
+      console.log('Username');
+
       const users = await getUserByParams({ username });
 
       console.log('User:', users);
@@ -56,9 +57,9 @@ const SignIn = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Username"
+          placeholder="Username or Email" 
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)} 
         />
         <input
           type="password"
