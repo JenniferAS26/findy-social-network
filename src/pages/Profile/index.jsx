@@ -4,8 +4,8 @@ import { v4 as uuid } from "uuid";
 import { addFollow, getFollowingByParams, removeFollow } from "../../services/followingService";
 import Card from "../../components/Card";
 import Gallery from "../../components/Gallery";
-import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
-import ImageUhPaper from "../../assets/images/jennie-blackpink-uhdpaper.com-hd-4 1.png";
+/* import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
+import ImageUhPaper from "../../assets/images/jennie-blackpink-uhdpaper.com-hd-4 1.png"; */
 import ImageEllipse3 from "../../assets/icons/Ellipse 3.svg";
 import ImageSlide from "../../assets/icons/back.svg";
 import "./styles.scss";
@@ -87,7 +87,7 @@ const Profile = () => {
             <h5>Followers</h5>
           </article>
           <article className="image-center">
-            <img style={{width: '76px', height: '76px', objectFit: 'cover'}} className="image" src={profileContent[0]?.userPhoto} alt="imagen" />
+            <img /* style={{width: '76px', height: '76px', objectFit: 'cover'}} */ className="image" src={profileContent[0]?.userPhoto} alt="imagen" />
             <img className="circle" src={ImageEllipse3} alt="icono" />
           </article>
           <article className="likes">
@@ -113,6 +113,12 @@ const Profile = () => {
           <button className="messages">Messages</button>
         </div>
         <Gallery>
+        {/*   <Card /> */}
+          {
+            profileContent.map((user, index) => (
+              <Card key={index} />
+            ))
+          }
           <Card />
         </Gallery>
       </div>
