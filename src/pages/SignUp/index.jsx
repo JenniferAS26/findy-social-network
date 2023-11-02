@@ -15,6 +15,10 @@ const SignUpForm = () => {
     username: '',
     email: '', 
     phoneNumber: '',
+    gender: '',
+    bio: '',
+    pronouns: '',
+    urlImage: ''
   });
 
   const handleNextStep = () => {

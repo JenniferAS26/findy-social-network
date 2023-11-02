@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import contactPhoto from '../../assets/images/image-1.svg'
 import save from '../../assets/icons/save.svg'
 import like from '../../assets/icons/like.svg'
@@ -12,9 +12,17 @@ const PostCard = ({ details }) => {
     details: PropTypes.object
   }
 
+  const { username } = useParams()
   const navigate = useNavigate()
 
-  const goToUserProfile = () => navigate(`/user-profile/${details.userId}`)
+  const goToUserProfile = () => {
+    if (details.username === username) {
+      navigate(`/profile/${details.username}`)
+    } else {
+      navigate(`/user-profile/${details.userId}`)
+    }
+
+  }
   const goToPost = () => navigate(`/post-detail/${details.postId}`)
 
   return (

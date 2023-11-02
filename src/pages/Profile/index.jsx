@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { addFollow, getFollowingByParams, removeFollow } from "../../services/followingService";
 import Card from "../../components/Card";
@@ -9,10 +9,12 @@ import ImageUhPaper from "../../assets/images/jennie-blackpink-uhdpaper.com-hd-4
 import ImageEllipse3 from "../../assets/icons/Ellipse 3.svg";
 import ImageSlide from "../../assets/icons/back.svg";
 import "./styles.scss";
+import { AuthContext } from "../../auth/context/AuthContext";
 
 const Profile = () => {
-  const { id } = useParams()
-  console.log(id)
+  const { user } = useContext( AuthContext )
+  const { followerId } = useParams()
+  console.log(followerId)
   const [profileContent, setProfileContent] = useState([])
   const [userData, setUserData] = useState({
     name: "",
@@ -52,7 +54,7 @@ const Profile = () => {
   };
 
   const getFollowingInfo = useCallback(() => {
-    getFollowingByParams({ followerId: id })
+    getFollowingByParams({ followerId })
       .then(response => {
         console.log(response)
         setProfileContent(response)
@@ -68,7 +70,7 @@ const Profile = () => {
       <div className="Profile-conatiner-page__inside">
         <header className="Profile-container-page__inside_header">
           <img className="black" src={profileContent[0]?.coverPhoto} alt="imagen" />
-          <Link className="slide" to="/">
+          <Link className="slide" to={`/${user.username}`}>
             <img src={ImageSlide} alt="icono" />
           </Link>
         </header>
@@ -110,6 +112,8 @@ const Profile = () => {
               <Card key={index} />
             ))
           } */}
+    
+          <Card />
         </Gallery>
       </div>
     </section>
