@@ -113,12 +113,6 @@ const Profile = () => {
           <button className="messages">Messages</button>
         </div>
         <Gallery>
-        {/*   <Card /> */}
-          {
-            profileContent.map((user, index) => (
-              <Card key={index} />
-            ))
-          }
           <Card />
         </Gallery>
       </div>
