@@ -1,0 +1,51 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+.list-contacts 
+  @include pageStyles
+  gap: 10px
+  padding: 20px 5px
+  .top
+    width: 100%
+    height: 30px
+    @include flexCenter(row, flex-start, flex-start)
+    gap: 15px
+    margin-left: 10px
+  &__title
+    font-size: 2rem
+    color: $primary-text-color
+  &__arrow
+    font-size: 2.5rem
+    color: $primary-text-color
+  &__gallery
+    width: 100%
+    height: 790px
+    display: grid
+    grid-template-columns: repeat(3, 120px)
+    grid-template-rows: auto
+    justify-items: center
+    justify-content: center
+    gap: 10px
+    overflow-y: scroll
+    @include removeScrollBar
+    &--card
+      width: 100%
+      height: 160px
+      border: 1px solid #eae7e7
+      border-radius: 10px
+      background-color: rgba($color-4, 0.2)
+      display: grid
+      place-items: center
+      .image
+        width: 68px
+        height: 68px
+        object-fit: cover
+        border-radius: 50%
+      .title
+        font-size: 1.3rem
+        font-weight: $medium-weight
+        color: $primary-text-color
+        text-align: center
+      .follow-button
+        @include buttonStyle(100px, 25px, 5px, none, 1.6rem, $color-5, $color-1)
+        

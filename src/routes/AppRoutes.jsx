@@ -13,6 +13,7 @@ import { useContext } from 'react'
 import { AuthContext } from '../auth/context/AuthContext'
 import PublicRoutes from './PublicRoutes'
 import PrivateRoutes from './PrivateRoutes'
+import ListOfContacts from '../pages/ListOfContacts'
 
 const AppRoutes = () => {
   const { logged } = useContext( AuthContext )
@@ -27,8 +28,9 @@ const AppRoutes = () => {
           <Route path='profile/:username' element={<MyAccount />} />
         </Route>
         <Route path='make-post/:username' element={<MakePost />} />
-        <Route path='user-profile/:id' element={<Profile />} />
+        <Route path='user-profile/:followerId' element={<Profile />} />
         <Route path='edit-account/:username' element={<EditMyAccount />} />
+        <Route path='users-list/:username' element={<ListOfContacts />} />
       </Route>
       <Route element={<PublicRoutes />} isAuth={ logged } >
         <Route path='sign-in' element={<SignIn />} />
