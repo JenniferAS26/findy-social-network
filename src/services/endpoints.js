@@ -8,4 +8,5 @@ export const endpoints = {
   posts: `${BASE_URL}/posts`,
   cloudinary: CLOUDINARY_URL,
   comments: `${BASE_URL}/comments`, 
+  followerPost: `${BASE_URL}/followerPost`
 }

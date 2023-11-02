@@ -3,7 +3,7 @@ import { endpoints } from './endpoints'
 
 const addFollow = async ( body ) => {
   try {
-    await axios.post(endpoints.following, body)
+    await axios.post(endpoints.followerPost, body)
   } catch (error) {
     console.warn(error)
   }
@@ -30,7 +30,7 @@ const getFollowingByParams = async ( params ) => {
 const removeFollow = async ( id ) => {
   console.log('removeFollow',id);
   try {
-    await axios.delete(`${endpoints.following}/${id}`)
+    await axios.delete(`${endpoints.followerPost}/${id}`)
   } catch (error) {
     console.warn(error)
   }
