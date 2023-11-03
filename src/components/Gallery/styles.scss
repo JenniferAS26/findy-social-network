@@ -2,7 +2,7 @@
 @use '../../styles/mixins' as *;
 
 
-.Contianer-Gallery{
+.Container-Gallery{
     width: 413px;
     height: 474px;
     display: grid;
@@ -10,7 +10,7 @@
    /*  border: transparent; */
     border-radius: 30px;
     margin-top: 17px;
-    .Contianer-Gallery_header{
+    .Container-Gallery_header{
       width: 369px;
       height: 34px;
       display: grid;
@@ -41,12 +41,22 @@
       }
     
     }
-    .Contianer-Gallery_card{
-        width: 250px;
+    .Container-Gallery_cards{
+        width: 100%;
         height: 381px;
         display: grid;
-        position: relative;
-        margin-left: -10px;
-        margin-top: 40px;
+        grid-template-columns: repeat(2, 200px); 
+        justify-content: center;
+        justify-items: center;
+        row-gap: 10px;
+        overflow-y: scroll;
+        @include removeScrollBar;
+        .cardImage{
+          width: 180px;
+          height: 200px;
+          object-fit: cover;
+          border-radius: 10px;
+        }
+
       }
 }
