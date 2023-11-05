@@ -7,7 +7,7 @@ import { getUserByParams } from '../../services/userService.js';
 import { AuthContext } from '../../auth/context/AuthContext';
 
 const SignIn = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
@@ -17,20 +17,18 @@ const SignIn = () => {
     event.preventDefault();
 
     try {
-      console.log('Username');
+      const usersByEmail = await getUserByParams({ email });
 
-      const users = await getUserByParams({ username });
-
-      if (users.length > 0) {
-        const user = users[0];
+      if (usersByEmail.length > 0) {
+        const user = usersByEmail[0];
         if (user.password === password) {
-          login(username, password)
+          login(email, password)
           navigate(`/${user.username}`);
         } else {
           Swal.fire({
             icon: 'error',
-            title: 'Incorrect Password',
-            text: 'Please try again.',
+            title: 'Contraseña incorrecta',
+            text: 'Por favor, inténtalo de nuevo.',
             confirmButtonColor: '#FF7674',
             customClass: {
               confirmButton: 'custom-button-width',
@@ -40,8 +38,8 @@ const SignIn = () => {
       } else {
         Swal.fire({
           icon: 'error',
-          title: 'User Not Found',
-          text: 'Please check your username or sign up.',
+          title: 'Usuario no encontrado',
+          text: 'Por favor, verifica tu correo electrónico, o regístrate.',
           confirmButtonColor: '#FF7674',
           customClass: {
             confirmButton: 'custom-button-width',
@@ -49,7 +47,7 @@ const SignIn = () => {
         });
       }
     } catch (error) {
-      console.error('Error fetching user:', error);
+      console.error('Error al buscar al usuario:', error);
     }
   };
 
@@ -59,19 +57,19 @@ const SignIn = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Username or Email" 
-          value={username}
-          onChange={(e) => setUsername(e.target.value)} 
+          placeholder="Correo electrónico" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)} 
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Sign In</button>
+        <button type="submit">Iniciar sesión</button>
       </form>
-      <p>Do not have an account? <Link to="/sign-up">Sign Up</Link></p>
+      <p>¿No tienes una cuenta? <Link to="/sign-up">Regístrate</Link></p>
     </div>
   );
 };
