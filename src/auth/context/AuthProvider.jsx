@@ -11,8 +11,8 @@ const AuthProvider = ({ children }) => {
 
   const [ authState, dispatch ] = useReducer( authReducer, initialState )
 
-  const login = ( username = 'jenniferas', password = 'Jennifer@123' ) => {
-    const user = { username, password }
+  const login = ( email = 'jennifer@gmail.com', password = 'Jennifer@123' ) => {
+    const user = { email, password }
 
     const action = {
       type: types.login,
