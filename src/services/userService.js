@@ -29,12 +29,14 @@ const getUserByParams = async ( params ) => {
 
 const getUserByEmailUsername = async (email, username) => {
   try {
-    const { data } = await axios.get(endpoints.user(email, username))
-    return data.length ? data[0] : null
+    const { data } = await axios.get(endpoints.user({ email, username }));
+    return data.length ? [data[0]] : [];
   } catch (error) {
-    console.warn(error)
+    console.warn(error);
   }
-}
+};
+
+
 
 const updateUser = async ( id, body ) => {
   try {
@@ -72,6 +74,7 @@ const saveImage = async file => {
   const response = await axios.post(endpoints.cloudinary, body, { headers })
   return response.data.url
 }
+
 
 export {
   createUser,

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './styles.scss';
 import flechitaIcon from '../../assets/icons/flechita.png';
 import { createUser } from '../../services/userService.js';
+import { getUserByParams } from '../../services/userService.js';
 import Swal from 'sweetalert2';
 
 const SignUpForm = () => {
@@ -58,20 +59,32 @@ const SignUpForm = () => {
   const handleSignUp = async () => {
     if (isStepValid()) {
       try {
-        const newUser = await createUser(formData);
-        console.log(newUser);
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Successful Registration',
-          text: 'Your account has been created successfully!',
-          confirmButtonColor: '#FF7674',
-          customClass: {
-            confirmButton: 'custom-button-width'
-          }
-        }).then(() => {
-          navigate('/sign-in');
-        });
+        const existingUser = await getUserByParams({ username: formData.username, email: formData.email });
+        if (existingUser.length > 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Registration Failed',
+            text: 'A user with this username or email already exists!',
+            confirmButtonColor: '#FF7674',
+            customClass: {
+              confirmButton: 'custom-button-width'
+            }
+          });
+        } else {
+          const newUser = await createUser(formData);
+          console.log(newUser);
+          Swal.fire({
+            icon: 'success',
+            title: 'Successful Registration',
+            text: 'Your account has been created successfully!',
+            confirmButtonColor: '#FF7674',
+            customClass: {
+              confirmButton: 'custom-button-width'
+            }
+          }).then(() => {
+            navigate('/sign-in');
+          });
+        }
       } catch (error) {
         console.error('Error creating the user:', error);
       }
