@@ -6,7 +6,7 @@ import comment from '../../assets/icons/commets.svg'
 import share from '../../assets/icons/share.svg'
 import './styles.sass'
 
-const FloatingCard = ({ postDetails }) => {
+const FloatingCard = ({ postDetails, image }) => {
   FloatingCard.propTypes = {
     postDetails: PropTypes.array
   }
@@ -14,7 +14,7 @@ const FloatingCard = ({ postDetails }) => {
   return (
     <div className='floating-card'>
       <div className='floating-card__photo-name'>
-        <img className='floating-card__photo-name--image' src={profilePicture} alt='' />
+        <img className='floating-card__photo-name--image' src={image} alt='profile picture' />
         <Link 
           className='floating-card__photo-name--name'
           to='/user-profile'

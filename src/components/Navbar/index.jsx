@@ -1,6 +1,7 @@
-import { useContext } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../auth/context/AuthContext'
+import { getUserByParams } from '../../services/userService'
 import homeIcon from '../../assets/icons/home.svg'
 import search from '../../assets/icons/glass.svg'
 import bell from '../../assets/icons/bell.svg'
@@ -10,13 +11,21 @@ import './styles.sass'
 
 const Navbar = () => {
   const { user } = useContext( AuthContext )
+  const [ userLog, setUserLog ] = useState([])
 
   const navigate = useNavigate()
 
   const goTo = () => {
     navigate(`/make-post/${user.username}`)
   }
+  const getUserLogged = useCallback(() => {
+      getUserByParams({ username: user.username })
+        .then(response => setUserLog(response[0]))
+    }, [])
 
+  useEffect(() => {
+      getUserLogged()
+    }, [getUserLogged])
 
   return (<>
     <nav className='footer'>
@@ -40,7 +49,7 @@ const Navbar = () => {
             <img src={bell} alt='house icon' />
           </Link>
           <Link className='footer__list--options' to={`/profile/${user.username}`}>
-            <img src={profile} alt='house icon' />
+            <img className='profile-picture' src={userLog?.urlImage} alt='house icon' />
           </Link>
         </div>
       </ul>
