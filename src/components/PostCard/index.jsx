@@ -20,11 +20,14 @@ const PostCard = ({ details }) => {
   const { username } = useParams()
   const navigate = useNavigate()
 
+  console.log(username)
+  console.log(details)
+
   const goToUserProfile = () => {
     if (details?.username === username) {
       navigate(`/profile/${details?.username}`)
     } else {
-      navigate(`/user-profile/${details?.userId}`)
+      navigate(`/user-profile/${details?.username}`)
     }
 
   }

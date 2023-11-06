@@ -28,7 +28,7 @@ const AppRoutes = () => {
           <Route path='profile/:username' element={<MyAccount />} />
         </Route>
         <Route path='make-post/:username' element={<MakePost />} />
-        <Route path='user-profile/:followerId' element={<Profile />} />
+        <Route path='user-profile/:username' element={<Profile />} />
         <Route path='edit-account/:username' element={<EditMyAccount />} />
         <Route path='users-list/:username' element={<ListOfContacts />} />
       </Route>

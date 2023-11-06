@@ -2,19 +2,17 @@ import { Link, useParams } from "react-router-dom";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { addFollow, getFollowingByParams, removeFollow } from "../../services/followingService";
-/* import Card from "../../components/Card"; */
+import { getUserByParams } from "../../services/userService";
 import Gallery from "../../components/Gallery";
-/* import ImageBlackPink from "../../assets/images/blackpink-jennie-calvin-klein-photoshoot-uhdpaper.com-hd-6 1.png";
-import ImageUhPaper from "../../assets/images/jennie-blackpink-uhdpaper.com-hd-4 1.png"; */
 import ImageEllipse3 from "../../assets/icons/Ellipse 3.svg";
 import ImageSlide from "../../assets/icons/back.svg";
-import "./styles.scss";
 import { AuthContext } from "../../auth/context/AuthContext";
+import "./styles.scss";
 
 const Profile = () => {
   const { user } = useContext( AuthContext )
-  const { followerId } = useParams()
-  console.log(followerId)
+  const { username } = useParams()
+  console.log(username)
   const [profileContent, setProfileContent] = useState([])
   const [userData, setUserData] = useState({
     name: "",
@@ -22,6 +20,8 @@ const Profile = () => {
     id: uuid(),
     isFollowing: false,
   });
+  const [userLogged, setUserLogged] = useState([])
+  const [userFromUsers, setUserFromUsers] = useState([])
 
   const handleFollowClick = async () => {
     try {
@@ -53,14 +53,35 @@ const Profile = () => {
     }
   };
 
-  const getFollowingInfo = useCallback(() => {
-    getFollowingByParams({ followerId })
+  const getUserLoggedData = useCallback(() => {
+    getUserByParams({ email: user.email })
+      .then(response => setUserLogged(response[0]))
+  }, [])
+
+  const getUserFromUsers = useCallback(() => {
+    getUserByParams({ username: username })
       .then(response => {
-        console.log(response)
+        console.log('userFromUsers', response[0])
+        setUserFromUsers(response[0])
+      })
+  }, [])
+  
+  const getFollowingInfo = useCallback(() => {
+    getFollowingByParams({ username })
+      .then(response => {
+        // console.log('followingData', response)
         setProfileContent(response)
       })
   }, [])
-
+  
+  useEffect(() => {
+    getUserLoggedData()
+  }, [getUserLoggedData])
+  
+    useEffect(() => {
+      getUserFromUsers()
+    }, [getUserFromUsers])
+  
   useEffect(() => {
     getFollowingInfo()
   }, [getFollowingInfo])
@@ -69,8 +90,17 @@ const Profile = () => {
     <section className="Profile-container-page">
       <div className="Profile-conatiner-page__inside">
         <header className="Profile-container-page__inside_header">
-          <img className="black" src={profileContent[0]?.coverPhoto} alt="imagen" />
-          <Link className="slide" to={`/${user.username}`}>
+          <img 
+            className="black" 
+            src={
+                  userFromUsers
+                    ? userFromUsers?.urlImage
+                    : profileContent[0]?.coverPhoto
+                } 
+            alt="imagen" 
+            style={{ objectFit: 'cover' }}
+          />
+          <Link className="slide" to={`/${userLogged?.username}`}>
             <img src={ImageSlide} alt="icono" />
           </Link>
         </header>
@@ -80,7 +110,15 @@ const Profile = () => {
             <h5>Followers</h5>
           </article>
           <article className="image-center">
-            <img /* style={{width: '76px', height: '76px', objectFit: 'cover'}} */ className="image" src={profileContent[0]?.userPhoto} alt="imagen" />
+            <img 
+              className="image" 
+              src={
+                  userFromUsers
+                  ? userFromUsers?.urlImage
+                  : profileContent[0]?.userPhoto
+                } 
+              alt="imagen" 
+            />
             <img className="circle" src={ImageEllipse3} alt="icono" />
           </article>
           <article className="likes">
@@ -89,9 +127,21 @@ const Profile = () => {
           </article>
         </div>
         <div className="Profile-contianer-page__inside__jennie-kim">
-          <h4>{profileContent[0]?.name}</h4>
+          <h4>
+            {
+              userFromUsers
+              ? userFromUsers?.username
+              : profileContent[0]?.name
+            }
+          </h4>
           <h5>J.Hello Guys</h5>
-          <h6>{profileContent[0]?.bio}</h6>
+          <h6>
+            {
+              userFromUsers
+              ? userFromUsers?.bio
+              : profileContent[0]?.bio
+            }
+          </h6>
         </div>
         <div className="Profile-contianer-page__inside__follow-massages">
           {userData.isFollowing ? (
@@ -106,15 +156,6 @@ const Profile = () => {
           <button className="messages">Messages</button>
         </div>
         <Gallery />
-          {/* <Card /> */}
-         {/*  {
-            profileContent.map((user, index) => (
-              <Card key={index} />
-            ))
-          } */}
-    
-          
-       
       </div>
     </section>
   );
