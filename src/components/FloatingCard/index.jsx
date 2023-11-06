@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import profilePicture from '../../assets/images/status-1.svg'
-import like from '../../assets/icons/heart.svg'
 import comment from '../../assets/icons/commets.svg'
 import share from '../../assets/icons/share.svg'
+import LikeButton from '../LikeButton'
 import './styles.sass'
 
 const FloatingCard = ({ postDetails, image }) => {
@@ -24,7 +23,7 @@ const FloatingCard = ({ postDetails, image }) => {
       </div>
       <div className='floating-card__reactions'>
         <div className='floating-card__reactions--reaction'>
-          <img src={like} alt='' />
+          <LikeButton />
           <span>108K</span>
         </div>
         <div className='floating-card__reactions--reaction'>
