@@ -17,14 +17,6 @@ const Card = () => {
         <img  src={ImagePhoto5} alt="imagen" />
         <img  src={ImagePhoto5} alt="imagen" />
       </div>
-      <div className="gallery-container-2">
-        <img  src={ImagePhoto5} alt="imagen" />
-        <img  src={ImagePhoto4} alt="imagen" />
-        <img  src={ImagePhoto6} alt="imagen" />
-        <img  src={ImagePhoto1} alt="imagen" />
-        <img  src={ImagePhoto3} alt="imagen" />
-        <img  src={ImagePhoto2} alt="imagen" />
-      </div>
     </div>
   );
 };
