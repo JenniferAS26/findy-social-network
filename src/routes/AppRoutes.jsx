@@ -23,7 +23,7 @@ const AppRoutes = () => {
       <Route element={<PrivateRoutes isAuth={logged}/>}>
         <Route element={<Layout />}>
           <Route path='/:username' element={<Feed />} />
-          <Route path='post-detail/:id' element={<PostDetail />} />
+          <Route path='post-detail/:postId' element={<PostDetail />} />
           <Route path='search' element={<SearchContent />} />
           <Route path='profile/:username' element={<MyAccount />} />
         </Route>

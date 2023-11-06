@@ -1,0 +1,7 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+.like-button
+  @include buttonStyle(32px, 28px, 50%, none, 2.6rem, $primary-text-color, transparent)
+  &__like
+    color: $color-1

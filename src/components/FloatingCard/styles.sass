@@ -16,17 +16,24 @@
     &--image
       width: 48px
       height: 48px
+      object-fit: cover
+      border-radius: 50%
     &--name
       font-size: 1.2rem
       font-weight: $bold-weight
       color: $primary-text-color
   &__reactions
+    // width: 125px
+    height: 100%
     @include flexCenter(row, space-between, center)
     gap: 18px
     &--reaction 
-      width: 27px
-      height: 35px
+      width: 33px
+      height: 100%
       display: grid
+      align-content: center
+      justify-items: center
+      gap: 3px
       img
-        width: 18px
-        height: 16px
+        width: 32px
+        height: 24px

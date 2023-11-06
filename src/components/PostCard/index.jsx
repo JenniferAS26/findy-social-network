@@ -1,16 +1,21 @@
 import PropTypes from 'prop-types'
 import { useNavigate, useParams } from 'react-router-dom'
-import contactPhoto from '../../assets/images/image-1.svg'
+import { useCallback, useEffect, useState } from 'react'
+import { getUserByParams } from '../../services/userService'
 import save from '../../assets/icons/save.svg'
 import like from '../../assets/icons/like.svg'
 import comment from '../../assets/icons/commets.svg'
 import share from '../../assets/icons/share.svg'
+import { FcLike } from 'react-icons/fc'
 import './styles.sass'
+import LikeButton from '../LikeButton'
 
 const PostCard = ({ details }) => {
   PostCard.propTypes = {
     details: PropTypes.object
   }
+  const [userLogged, setUserLogged] = useState([])
+  const [userFollow, setUserFollow] = useState([])
 
   const { username } = useParams()
   const navigate = useNavigate()
@@ -25,12 +30,35 @@ const PostCard = ({ details }) => {
   }
   const goToPost = () => navigate(`/post-detail/${details.postId}`)
 
+  const getUserLogged = useCallback(() => {
+    getUserByParams({ username })
+      .then(response => setUserLogged(response[0]))
+  }, [])
+
+  const getUserFollow = useCallback(() => {
+    getUserByParams({ username: details.username })
+      .then(response => setUserFollow(response[0]))
+  }, [])
+  
+  useEffect(() => {
+    getUserLogged()
+  }, [getUserLogged])
+
+  useEffect(() => {
+    getUserFollow()
+  }, [getUserFollow])
+
   return (
     <article
       className='post-card'
     >
       <div className='post-card__contact-info'>
-        <img src={contactPhoto} alt='contact photo' />
+        <img src={
+          userLogged === userFollow 
+            ? userLogged.urlImage 
+            : userFollow.urlImage
+        } 
+        alt='contact photo' />
         <span onClick={() => goToUserProfile()}>
           {details.username}
         </span>
@@ -41,7 +69,8 @@ const PostCard = ({ details }) => {
       <div className='post-card__icons'>
         <div className='post-card__icons--reaction'>
           <div className='icon'>
-            <img src={like} alt='icon' />
+            {/* <img src={like} alt='icon' /> */}
+            <LikeButton />
             <span>300K</span>
           </div>
           <div className='icon'>
