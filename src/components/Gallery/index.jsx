@@ -1,20 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import PropTypes from 'prop-types';
 import { getFollowingByParams } from '../../services/followingService'
 import './styles.scss';
+import { getPostByParams } from '../../services/postsService';
 
 const Gallery = () => {
   const [filteredItems, setFilteredItems] = useState([]);
   const [filter, setFilter] = useState('all'); 
-  const {followerId} = useParams()
-  console.log(followerId);
+  const {username} = useParams()
+  console.log(username);
+  const [postFromUsers, setPostFromUsers] = useState([])
 
-  
-  /* Gallery.propTypes = {
-    children: PropTypes.array,  
-  }; */
- 
+
   const renderItem = (item) => {
     switch(item.type) {
       case 'photo':
@@ -41,16 +38,24 @@ const Gallery = () => {
     }
   };
 
+  const getPostsFromUsers = useCallback(() => {
+    getPostByParams({ username })
+      .then(response => setPostFromUsers(response))
+  }, [])
 
   useEffect(() => {
-    getFollowingByParams({followerId})
+    getPostsFromUsers()
+  }, [getPostsFromUsers])
+
+  useEffect(() => {
+    getFollowingByParams({username})
       .then(response => {
         console.log(response);
         setFilteredItems(response)
       })
   
   }, [filter]);
- 
+
   return (
     <section>
       <div className="Container-Gallery">
@@ -61,13 +66,17 @@ const Gallery = () => {
           <button className='tag' onClick={() => setFilter('tags')}>Tags</button>
         </div>
         <div className="Container-Gallery_cards">
-         {/*  {filteredItems.map((item, index) => (
+          {/*  {filteredItems.map((item, index) => (
             <div key={index} className="gallery-item">
               {renderItem(item)}
             </div>
           ))} */}
           {
-            filteredItems[0]?.posts.map((post, index) => (
+            postFromUsers.length
+              ? postFromUsers.map((post, index) => (
+                <img key={index} className='cardImage' src={post.urlContent} alt="" />
+              ))
+              : filteredItems[0]?.posts.map((post, index) => (
               <img key={index} className='cardImage' src={post.urlContent} alt="" />
             ))
           }

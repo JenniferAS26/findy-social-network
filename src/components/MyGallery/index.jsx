@@ -1,14 +1,12 @@
-import { Link, useParams } from 'react-router-dom'
-import status1 from '../../assets/images/photo-1.jpg'
-import status3 from '../../assets/images/photo-3.jpg'
-import './styles.sass'
 import { useCallback, useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { getPostByParams } from '../../services/postsService'
+import './styles.sass'
 
 const MyGallery = () => {
   const [posts, setPosts] = useState([])
   const { username } = useParams()
-  console.log(username)
+  // console.log(username)
 
   const getPostByUser = useCallback(() => {
     getPostByParams({ username })

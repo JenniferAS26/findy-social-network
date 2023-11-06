@@ -20,15 +20,18 @@ const PostCard = ({ details }) => {
   const { username } = useParams()
   const navigate = useNavigate()
 
+  console.log(username)
+  console.log(details)
+
   const goToUserProfile = () => {
-    if (details.username === username) {
-      navigate(`/profile/${details.username}`)
+    if (details?.username === username) {
+      navigate(`/profile/${details?.username}`)
     } else {
-      navigate(`/user-profile/${details.userId}`)
+      navigate(`/user-profile/${details?.username}`)
     }
 
   }
-  const goToPost = () => navigate(`/post-detail/${details.postId}`)
+  const goToPost = () => navigate(`/post-detail/${details?.postId}`)
 
   const getUserLogged = useCallback(() => {
     getUserByParams({ username })
@@ -36,7 +39,7 @@ const PostCard = ({ details }) => {
   }, [])
 
   const getUserFollow = useCallback(() => {
-    getUserByParams({ username: details.username })
+    getUserByParams({ username: details?.username })
       .then(response => setUserFollow(response[0]))
   }, [])
   
@@ -55,16 +58,16 @@ const PostCard = ({ details }) => {
       <div className='post-card__contact-info'>
         <img src={
           userLogged === userFollow 
-            ? userLogged.urlImage 
-            : userFollow.urlImage
+            ? userLogged?.urlImage 
+            : userFollow?.urlImage
         } 
         alt='contact photo' />
         <span onClick={() => goToUserProfile()}>
-          {details.username}
+          {details?.username}
         </span>
       </div>
       <div className='post-card__media-container' onClick={() => goToPost()}>
-        <img src={details.urlContent} alt='post content' />
+        <img src={details?.urlContent} alt='post content' />
       </div>
       <div className='post-card__icons'>
         <div className='post-card__icons--reaction'>
@@ -85,7 +88,7 @@ const PostCard = ({ details }) => {
         <img className='save' src={save} alt='label icon' />
       </div>
       <div className='post-card__description'>
-        <p className='post-card__description--text'><span className='username' onClick={() => goToUserProfile()}>{details.username}</span> {details.description}</p>
+        <p className='post-card__description--text'><span className='username' onClick={() => goToUserProfile()}>{details?.username}</span> {details?.description}</p>
       </div>
     </article>
   )
