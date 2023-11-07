@@ -22,8 +22,10 @@ const Gallery = () => {
       case 'video':
         return (
           <video controls>
-            <source src={item.wepb} type="video/mp4" />
-            Your browser does not support the video tag.
+              {item.videos.map((video, index) => (
+                <source key={index} src={video.url} type="video" />
+            ))}
+             Your browser does not support the video tag.
           </video>
         );
       case 'album':
@@ -40,7 +42,18 @@ const Gallery = () => {
     return <div>Unsupported item type</div>; */
     }
   };
-
+  
+ /*  const filterItems = (items, filter) => {
+    let filtered;
+    if (filter === 'all') {
+      filtered = items;
+    } else {
+      filtered = items.flatMap(item =>
+        item.posts.filter(post => post.type === filter)
+      );
+    }
+    setFilteredItems(filtered);
+  }; */
 
   useEffect(() => {
     getFollowingByParams({followerId})
@@ -50,6 +63,12 @@ const Gallery = () => {
       })
   
   }, [filter]);
+
+ /*  useEffect(() => {
+    filterItems(items, filter); // Filtra items cada vez que el filtro cambie.
+  }, [filter, items]);
+ */
+  
  
   return (
     <section>
