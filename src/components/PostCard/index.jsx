@@ -14,6 +14,7 @@ const PostCard = ({ details }) => {
   }
   const [userLogged, setUserLogged] = useState([])
   const [userFollow, setUserFollow] = useState([])
+  const [fileType, setFileType] = useState('')
 
   const { username } = useParams()
   const navigate = useNavigate()
@@ -27,6 +28,21 @@ const PostCard = ({ details }) => {
 
   }
   const goToPost = () => navigate(`/post-detail/${details?.postId}`)
+
+  const getFileTypeFromURL = ( url ) => {
+    const extension = url.split('.').pop()
+
+    const videoExtensions = ['mp4', 'avi', 'mkv', 'mov']
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif']
+
+    if (videoExtensions.includes(extension)) {
+      return 'video'
+    } else if (imageExtensions.includes(extension)) {
+      return 'photo'
+    } else {
+      return 'unknown'
+    }
+  }
 
   const getUserLogged = useCallback(() => {
     getUserByParams({ username })
@@ -46,6 +62,10 @@ const PostCard = ({ details }) => {
     getUserFollow()
   }, [getUserFollow])
 
+  useEffect(() => {
+    setFileType(getFileTypeFromURL(details?.urlContent))
+  }, [])
+
   return (<>
     <article
       className='post-card'
@@ -62,7 +82,11 @@ const PostCard = ({ details }) => {
         </span>
       </div>
       <div className='post-card__media-container' onClick={() => goToPost()}>
-        <img src={details?.urlContent} alt='post content' />
+        {
+          fileType === 'photo'
+            ? <img className='post-card__media-container--image' src={details?.urlContent} alt='post content' />
+            : <video className='post-card__media-container--image' src={details?.urlContent} controls></video>
+        }
       </div>
       <div className='post-card__icons'>
         <div className='post-card__icons--reaction'>

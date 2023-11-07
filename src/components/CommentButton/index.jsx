@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { getCommentsByParams } from '../../services/commentsService'
+import { getUserByParams } from '../../services/userService'
 import { Drawer } from 'antd'
 import comment from '../../assets/icons/commets.svg'
 import './styles.sass'
-import { getUserByParams } from '../../services/userService'
 
 const CommentButton = ({ details }) => {
   CommentButton.propTypes = {
@@ -52,7 +52,7 @@ const CommentButton = ({ details }) => {
       {
         comments.map((comment, index) => (
           <div key={index} className='comment-card'>
-            <img src={userSendComment[0].urlImage} alt="" />
+            <img src={userSendComment[0]?.urlImage} alt="" />
             <p>{comment.content}</p>
           </div>
         ))
