@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import './styles.scss';
 import Swal from 'sweetalert2';
 import logo from '../../assets/icons/logo.svg';
@@ -11,9 +11,19 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const { login } = useContext( AuthContext )
+  const { login } = useContext(AuthContext);
 
-  const handleSubmit = async (event) => {
+  useEffect(() => {
+    const storedEmail = sessionStorage.getItem('email');
+    const storedPassword = sessionStorage.getItem('password');
+    if (storedEmail && storedPassword) {
+      setEmail(storedEmail);
+      setPassword(storedPassword);
+      handleSubmit(new Event('submit'), true);
+    }
+  }, []);
+
+  const handleSubmit = async (event, isPageLoad = false) => {
     event.preventDefault();
 
     try {
@@ -22,32 +32,40 @@ const SignIn = () => {
       if (usersByEmail.length > 0) {
         const user = usersByEmail[0];
         if (user.password === password) {
-          login(email, password)
+          // Store session information in Session Storage
+          sessionStorage.setItem('email', email);
+          sessionStorage.setItem('password', password);
+
+          login(email, password);
           navigate(`/${user.username}`);
         } else {
+          if (!isPageLoad) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Incorrect Password',
+              text: 'Please try again.',
+              confirmButtonColor: '#FF7674',
+              customClass: {
+                confirmButton: 'custom-button-width',
+              }
+            });
+          }
+        }
+      } else {
+        if (!isPageLoad) {
           Swal.fire({
             icon: 'error',
-            title: 'Contraseña incorrecta',
-            text: 'Por favor, inténtalo de nuevo.',
+            title: 'User Not Found',
+            text: 'Please check your email or sign up.',
             confirmButtonColor: '#FF7674',
             customClass: {
               confirmButton: 'custom-button-width',
             }
           });
         }
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Usuario no encontrado',
-          text: 'Por favor, verifica tu correo electrónico, o regístrate.',
-          confirmButtonColor: '#FF7674',
-          customClass: {
-            confirmButton: 'custom-button-width',
-          }
-        });
       }
     } catch (error) {
-      console.error('Error al buscar al usuario:', error);
+      console.error('Error while searching for the user:', error);
     }
   };
 
@@ -57,19 +75,19 @@ const SignIn = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Correo electrónico" 
+          placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)} 
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
-          placeholder="Contraseña"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit">Sign In</button>
       </form>
-      <p>¿No tienes una cuenta? <Link to="/sign-up">Regístrate</Link></p>
+      <p>Do not have an account? <Link to="/sign-up">Sign up</Link></p>
     </div>
   );
 };
