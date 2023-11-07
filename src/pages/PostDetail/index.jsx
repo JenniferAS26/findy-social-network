@@ -1,66 +1,116 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { AuthContext } from '../../auth/context/AuthContext'
+import { getPostByParams } from '../../services/postsService'
+import { addComment } from '../../services/commentsService'
+import { getUserByParams } from '../../services/userService'
 import back from '../../assets/icons/back-white.svg'
 import menu from '../../assets/icons/menu-white.svg'
-import profilePicture from '../../assets/images/profile-picture.svg'
 import sendComment from '../../assets/icons/send-message.svg'
 import FloatingCard from '../../components/FloatingCard'
-import { getPostByParams } from '../../services/postsService'
 import './styles.sass'
-import { addComment } from '../../services/commentsService'
 
 
 const PostDetail = () => {
   const [postDetails, setPostDetails] = useState([])
-  const { id } = useParams()
+  const [userFollow, setUserFollow] = useState([])
+  const [userLogged, setUserLogged] = useState([])
+  const [inputValue, setInputValue] = useState('')
+  const [fileType, setFileType] = useState('')
+  const { postId } = useParams()
 
-  const { register, handleSubmit } = useForm()
+  const { user } = useContext( AuthContext )
 
-  const onSubmit = async ( comment ) => {
+  const handleSubmit = async ( event ) => {
+    event.preventDefault()
     const newComment = {
-      ...comment,
-      postId: id
+      content: inputValue,
+      postId,
+      userId: userLogged.userId,
+      postOwnerUsername: postDetails[0]?.username
     }
     await addComment(newComment)
+    setInputValue('')
   }
 
   const getOnePost = useCallback(() => {
-    getPostByParams({ postId: id })
-      .then(response => setPostDetails(response))
+    getPostByParams({ postId })
+      .then(response => {
+        setPostDetails(response)
+        setFileType(getFileTypeFromURL(response[0].urlContent))
+      })
   }, [])
+
+  const getUserInfo = useCallback(() => {
+    getUserByParams({ username: postDetails[0]?.username })
+      .then(response => setUserFollow(response[0]))
+  }, [userFollow]) // revisar esta logica
   
+  const getUserLogged = useCallback(() => {
+    getUserByParams({ username: user.username })
+      .then(response => setUserLogged(response[0]))
+  }, [])
+
+  const getFileTypeFromURL = ( url ) => {
+    const extension = url.split('.').pop()
+
+    const videoExtensions = ['mp4', 'avi', 'mkv', 'mov']
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif']
+
+    if (videoExtensions.includes(extension)) {
+      return 'video'
+    } else if (imageExtensions.includes(extension)) {
+      return 'photo'
+    } else {
+      return 'unknown'
+    }
+  }
+
   useEffect(() => {
     getOnePost()
   }, [getOnePost])
+
+  useEffect(() => {
+    getUserInfo()
+  }, [getUserInfo])
+
+  useEffect(() => {
+    getUserLogged()
+  }, [getUserLogged])
 
   return (
     <main className='post-detail'>
       <section className='post-detail__cover-picture'>
         <div className='post-detail__cover-picture--top'>
-          <Link to='/'>
+          <Link to={`/${userLogged.username}`}>
             <img src={back} alt='back arrow icon' />
           </Link>
           <img src={menu} alt='menu icon' />
         </div>
-        <img className='post-detail__cover-picture--image' src={postDetails[0]?.urlContent} alt='cover picture from feed' />
+        {
+          fileType === 'photo'
+            ? <img className='post-detail__cover-picture--image' src={postDetails[0]?.urlContent} alt='cover picture from feed' />
+            : <video className='post-detail__cover-picture--image' src={postDetails[0]?.urlContent}  autoPlay controls></video>
+        }
       </section>
       <section className='post-detail__description'>
         <p className='post-detail__description--text'>{postDetails[0]?.description}</p>
       </section>
-      <FloatingCard postDetails={postDetails} />
+      <FloatingCard postDetails={postDetails} image={userFollow?.urlImage} />
       <form 
         className='post-detail__new-comment'
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit}
       >
-        <img className='post-detail__new-comment--image' src={profilePicture} alt='profile picture' />
+        <img className='post-detail__new-comment--image' src={userLogged?.urlImage} alt='profile picture' />
         <div className='post-detail__new-comment--input-wrapper'>
           <input 
             className='input-message' 
             type="text" 
             placeholder='Write comment as username....' 
             name='content'
-            { ...register('content') }
+            autoComplete='off'
+            onChange={(event) => setInputValue(event.target.value)}
+            value={inputValue}
           />
           <button className='send-comment' type='submit'>
             <img src={sendComment} alt='paper plane' />

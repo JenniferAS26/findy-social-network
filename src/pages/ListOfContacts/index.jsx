@@ -10,10 +10,7 @@ const ListOfContacts = () => {
 
   const getContacts = useCallback(() => {
     getFollowing()
-    .then(response => {
-      console.log(response)
-      setContacts(response)
-    })
+    .then(response => setContacts(response))
   }, [])
 
   useEffect(() => {
@@ -31,7 +28,9 @@ const ListOfContacts = () => {
         {
           contacts.map(( contact, index ) => (
             <div className='list-contacts__gallery--card' key={index}>
-              <Link to={`/user-profile/${contact.followerId}`}><img className='image' src={contact.userPhoto} alt='' /></Link>
+              <Link to={`/user-profile/${contact.username}`}>
+                <img className='image' src={contact.userPhoto} alt='' />
+              </Link>
               <h4 className='title'>{contact.name}</h4>
               <button className='follow-button'>Follow</button>
             </div>

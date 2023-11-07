@@ -14,6 +14,11 @@
     padding-left: 6px
     @include flexCenter(row, flex-start, center)
     gap: 5px
+    img
+      width: 28px
+      height: 28px
+      object-fit: cover
+      border-radius: 50%
     span
       cursor: pointer
       font-size: 1.6rem
@@ -23,7 +28,7 @@
     width: 360px
     height: 360px
     justify-self: center
-    img
+    &--image
       width: 100%
       height: 100%
       object-fit: cover
@@ -37,8 +42,10 @@
       height: 100%
       @include flexCenter(row, space-between, center)
       .icon
-        width: 31px
+        width: 38px
         height: 41px
+        .comment-icon
+          cursor: pointer
     .save
       align-self: flex-start
       margin-top: 10.5px
