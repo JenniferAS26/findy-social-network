@@ -27,9 +27,20 @@ const getUserByParams = async ( params ) => {
   }
 }
 
+const getUserByEmailUsername = async (email, username) => {
+  try {
+    const { data } = await axios.get(endpoints.user({ email, username }));
+    return data.length ? [data[0]] : [];
+  } catch (error) {
+    console.warn(error);
+  }
+};
+
+
+
 const updateUser = async ( id, body ) => {
   try {
-    await axios.patch(endpoints.users, id, body)
+    await axios.patch(`${endpoints.users}/${id}`, body)
   } catch (error) {
     console.warn(error)
   }
@@ -51,11 +62,27 @@ const deleteUser = async ( id ) => {
   }
 }
 
+const saveImage = async file => {
+  const body = {
+    file,
+    api_key: 357824561481388,
+    upload_preset: 't4dskobq'
+  }
+  const headers = {
+    "Content-Type": "multipart/form-data",
+  }
+  const response = await axios.post(endpoints.cloudinary, body, { headers })
+  return response.data.url
+}
+
+
 export {
   createUser,
   getUser,
   getUserByParams,
+  getUserByEmailUsername,
   updateUser,
   updateUserByParams,
-  deleteUser
+  deleteUser,
+  saveImage
 }

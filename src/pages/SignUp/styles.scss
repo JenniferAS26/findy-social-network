@@ -1,0 +1,88 @@
+    .signup-form {
+        margin-top: 20px; 
+        margin-left: 20px;
+        display: flex;
+        margin-right: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        
+        .form-step {
+        width: 100%;
+        margin: 20px 0;
+    
+        h2 {
+            margin-bottom: 10px;
+        }
+    
+        input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px; 
+            border: 1px solid #dcdcdc;
+        }
+        input:focus {
+            outline: 2px solid #FF7674;
+        }
+        p {
+            margin-bottom: 10px; 
+        }
+    
+        button {
+            background-color: #FF7674;
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+    
+        .previous-button {
+            position: absolute;
+            top: 10px; 
+            left: 10px;
+            cursor: pointer;
+        }
+        }
+    
+        .sign-in-link {
+            margin: 20px auto;
+            margin-top: 600px;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            font-size: 10px; 
+        }
+        .link {
+            color: #FF7674;
+            font-weight: bold;
+        }
+    }
+    .swal2-popup {
+        background-color: #fff;
+        border: 1px solid #FF7674;
+        border-radius: 8px;
+        border: none;
+            text-align: center;
+        }
+        
+        .swal2-title {
+            color: #FF7674;
+        }
+        
+        .swal2-content {
+            color: #000;
+        }
+        
+        .swal2-confirm {
+            background-color: #FF7674;
+            color: #fff;
+            padding: 10px 20px;
+            width: 100%;
+        }
+        .custom-button-width {
+            width: 150px;
+        }
+        

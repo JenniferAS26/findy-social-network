@@ -1,26 +1,45 @@
-import { Routes, Route } from "react-router-dom"
-import Layout from "../components/Layout"
-import Feed from "../pages/Feed"
-import SignIn from "../pages/SignIn"
-import SignUp from "../pages/SignUp"
-import Profile from "../pages/Profile"
-import PostDetail from "../pages/PostDetail"
-import SearchContent from "../pages/SearchContent"
+import { Routes, Route } from 'react-router-dom'
+import Layout from '../components/Layout'
+import Feed from '../pages/Feed'
+import SignIn from '../pages/SignIn'
+import SignUp from '../pages/SignUp'
+import Profile from '../pages/Profile'
+import PostDetail from '../pages/PostDetail'
+import SearchContent from '../pages/SearchContent'
+import MyAccount from '../pages/MyAccount'
+import EditMyAccount from '../pages/EditMyAccount'
+import MakePost from '../pages/MakePost'
+import { useContext } from 'react'
+import { AuthContext } from '../auth/context/AuthContext'
+import PublicRoutes from './PublicRoutes'
+import PrivateRoutes from './PrivateRoutes'
+import ListOfContacts from '../pages/ListOfContacts'
 import Notification from "../pages/Notification"
 import Active from "../pages/Active"
+
 const AppRoutes = () => {
+  const { logged } = useContext( AuthContext )
+
   return (
     <Routes>
-      <Route element={<Layout />}>
-        <Route index element={<Feed />} />
-        <Route path='post-detail' element={<PostDetail />} />
-        <Route path='search' element={<SearchContent />} />
-        <Route path='notification' element={<Notification />} />
-        <Route path='Active' element={<Active />} />
+      <Route element={<PrivateRoutes isAuth={logged}/>}>
+        <Route element={<Layout />}>
+          <Route path='/:username' element={<Feed />} />
+          <Route path='post-detail/:postId' element={<PostDetail />} />
+          <Route path='search' element={<SearchContent />} />
+          <Route path='profile/:username' element={<MyAccount />} />
+          <Route path='notification' element={<Notification />} />
+          <Route path='Active' element={<Active />} />
+        </Route>
+        <Route path='make-post/:username' element={<MakePost />} />
+        <Route path='user-profile/:username' element={<Profile />} />
+        <Route path='edit-account/:username' element={<EditMyAccount />} />
+        <Route path='users-list/:username' element={<ListOfContacts />} />
       </Route>
-      <Route path='profile' element={<Profile />} />
-      <Route path='sign-in' element={<SignIn />} />
-      <Route path='sign-up' element={<SignUp />} />
+      <Route element={<PublicRoutes />} isAuth={ logged } >
+        <Route path='sign-in' element={<SignIn />} />
+        <Route path='sign-up' element={<SignUp />} />
+      </Route>
     </Routes>
   )
 }

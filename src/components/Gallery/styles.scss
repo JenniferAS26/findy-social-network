@@ -1,0 +1,62 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+
+.Container-Gallery{
+    width: 413px;
+    height: 474px;
+    display: grid;
+    background-color: $color-5;
+   /*  border: transparent; */
+    border-radius: 30px;
+    margin-top: 17px;
+    .Container-Gallery_header{
+      width: 369px;
+      height: 34px;
+      display: grid;
+      margin-top: 19px;
+      margin-left: 20px;
+      background-color: $color-5;
+      @include flexCenter(row, center, center);
+      column-gap: 55px; 
+      .Photos, .Videos, .album, .tag{
+        width: 50px;
+        height: 16px;
+        color: $primary-text-color;
+        font-family: $font-source;
+        font-size: 16px;
+        font-weight: 700;
+        background-color: $color-5;
+        text-decoration: none;
+        display: grid;
+        border: transparent;
+       /*  border-style: none; */
+        cursor: pointer;
+        &:hover{
+          opacity: 0.5;
+          text-decoration: underline;  
+          text-decoration-color: pink;
+          text-underline-offset: 3px; 
+        }
+      }
+    
+    }
+    .Container-Gallery_cards{
+        width: 100%;
+        height: 381px;
+        display: grid;
+        grid-template-columns: repeat(2, 200px); 
+        justify-content: center;
+        justify-items: center;
+        row-gap: 10px;
+        overflow-y: scroll;
+        @include removeScrollBar;
+        .cardImage{
+          width: 180px;
+          height: 200px;
+          object-fit: cover;
+          border-radius: 10px;
+        }
+
+      }
+}
