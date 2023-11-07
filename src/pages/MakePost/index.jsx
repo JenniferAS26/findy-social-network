@@ -25,7 +25,6 @@ import './styles.sass'
 
 const MakePost = () => {
   const { username } = useParams()
-  console.log(username)
   const [ file, setFile ] = useState({
     name: postFile,
     type: 'image/jpeg'
@@ -61,7 +60,7 @@ const MakePost = () => {
       username,
       postId: uuid()
     }
-    // console.log(post)
+    
     await addPost(post)
     navigate(`/${username}`)
   }

@@ -10,10 +10,7 @@ const ListOfContacts = () => {
 
   const getContacts = useCallback(() => {
     getFollowing()
-    .then(response => {
-      console.log(response)
-      setContacts(response)
-    })
+    .then(response => setContacts(response))
   }, [])
 
   useEffect(() => {

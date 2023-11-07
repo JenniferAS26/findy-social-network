@@ -72,7 +72,7 @@ const SignUpForm = () => {
           });
         } else {
           const newUser = await createUser(formData);
-          console.log(newUser);
+          // console.log(newUser);
           Swal.fire({
             icon: 'success',
             title: 'Successful Registration',
