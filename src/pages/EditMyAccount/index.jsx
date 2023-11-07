@@ -27,7 +27,6 @@ const EditMyAccount = () => {
   }
   
   const onSubmit = async ( userInfo ) => {
-    // event.preventDefault()
     const file = userInfo.profilePhoto[0]
     const imageUrl = await saveImage(file)
     const newUserInfo = {
@@ -51,16 +50,12 @@ const EditMyAccount = () => {
     if (userUpdate.isConfirmed) {
       navigate(-1)
     }
-    console.log(newUserInfo)
   }
 
   // const goBack = () => navigate(`/profile/${username}`)
   const getUserLogged = useCallback(() => {
     getUserByParams({ username })
-      .then(response => {
-        setUserLogged(response[0])
-        console.log(response[0])
-      })
+      .then(response => setUserLogged(response[0]))
   }, [])
 
   useEffect(() => {

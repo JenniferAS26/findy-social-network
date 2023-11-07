@@ -16,7 +16,7 @@ const FloatingCard = ({ postDetails, image }) => {
         <img className='floating-card__photo-name--image' src={image} alt='profile picture' />
         <Link 
           className='floating-card__photo-name--name'
-          to='/user-profile'
+          to={`/user-profile/${postDetails[0]?.username}`}
         >
           {postDetails[0]?.username}
         </Link>
