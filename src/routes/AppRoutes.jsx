@@ -29,7 +29,7 @@ const AppRoutes = () => {
           <Route path='search' element={<SearchContent />} />
           <Route path='profile/:username' element={<MyAccount />} />
           <Route path='notification' element={<Notification />} />
-          <Route path='Active' element={<Active />} />
+          <Route path='active' element={<Active />} />
         </Route>
         <Route path='make-post/:username' element={<MakePost />} />
         <Route path='user-profile/:username' element={<Profile />} />
