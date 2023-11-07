@@ -6,12 +6,28 @@ import "./styles.scss";
 
 const Gallery = () => {
   const [postFollowing, setPostFollowing] = useState([]);
-  const [filter, setFilter] = useState("image");
+  const [filter, setFilter] = useState("photo");
   const { username } = useParams();
   console.log(username);
   const [postFromUsers, setPostFromUsers] = useState([]);
 
   const filteredPosts = postFollowing?.posts?.filter(post => post.type === filter)
+  
+  const getFileTypeFromURL = ( url ) => {
+    const extension = url.split('.').pop()
+    
+    const videoExtensions = ['mp4', 'avi', 'mkv', 'mov']
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif']
+    
+    if (videoExtensions.includes(extension)) {
+      return 'video'
+    } else if (imageExtensions.includes(extension)) {
+      return 'photo'
+    } else {
+      return 'unknown'
+    }
+  }
+  const filteredPostsFromUsers = postFromUsers?.filter(post => getFileTypeFromURL(post?.urlContent) === filter)
 
   const getPostsFromUsers = useCallback(() => {
     getPostByParams({ username }).then((response) =>
@@ -60,16 +76,13 @@ const Gallery = () => {
         <div className="Container-Gallery_cards">
           {
             postFromUsers.length
-              ? postFromUsers.map((post, index) => (
-                  <img
-                    key={index}
-                    className="cardImage"
-                    src={post.urlContent}
-                    alt=""
-                  />
+              ? filteredPostsFromUsers.map((post, index) => (
+                  filter === 'photo'
+                    ? <img key={index} className="cardImage" src={post.urlContent} alt=""/>
+                    : <video key={index} className="cardImage" src={post.urlContent} controls></video>
                 ))
               : filteredPosts?.map((post, index) => (
-                  filter === 'image'
+                  filter === 'photo'
                     ? <img key={index} className="cardImage" src={post.urlContent} alt=""/>
                     : <video key={index} className="cardImage" src={post.urlContent} controls></video>
                 ))
