@@ -19,9 +19,7 @@ const SearchContent = () => {
 
       <div className='buscar'>
         <img src={lupita} alt="" />
-        <input type="text" name="Buscar" id="Buscar" placeholder='Bucar'/>
-        
-        
+        <input type="text" name="Buscar" id="Buscar" placeholder='Bucar'/>   
       </div>
     
       <div className='searchcontent-container__gallery'>
@@ -76,9 +74,7 @@ const SearchContent = () => {
           <img src={img12}alt="" />
         </div>
 
-        <div className='searchcontent-container__img13'>
-          <img src={img13}alt="" />
-        </div>
+     
 
    
  
@@ -89,22 +85,6 @@ const SearchContent = () => {
 
 
       </div>
-
-      
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
     </div>
   )
 }
