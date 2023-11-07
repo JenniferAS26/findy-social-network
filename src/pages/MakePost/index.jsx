@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom' 
 import { useForm } from 'react-hook-form'
+import { addPost } from '../../services/postsService'
+import { getUserByParams, saveImage } from '../../services/userService'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaCamera } from 'react-icons/fa6'
 import { BsSearch } from 'react-icons/bs'
@@ -16,12 +18,9 @@ import thumbnail8 from '../../assets/images/post-8.jpeg'
 import thumbnail9 from '../../assets/images/post-9.jpeg'
 import thumbnail10 from '../../assets/images/post-10.jpeg'
 import thumbnail11 from '../../assets/images/post-11.jpeg'
-import profilePicture from '../../assets/images/profile-picture.svg'
-import { addPost } from '../../services/postsService'
-import { saveImage } from '../../services/userService'
 import { v4 as uuid } from 'uuid'
-
 import './styles.sass'
+
 
 const MakePost = () => {
   const { username } = useParams()
@@ -29,6 +28,7 @@ const MakePost = () => {
     name: postFile,
     type: 'image/jpeg'
   }) 
+  const [userLogged, setUserLogged] = useState([])
 
   const { register, handleSubmit } = useForm()
 
@@ -40,7 +40,6 @@ const MakePost = () => {
       name:URL.createObjectURL(chosenFile),
       type: chosenFile.type
     })
-
   }
 
   const nextStep = () => {
@@ -65,6 +64,15 @@ const MakePost = () => {
     navigate(`/${username}`)
   }
 
+  const getUserLogged = useCallback(() => {
+    getUserByParams({ username })
+      .then(response => setUserLogged(response[0]))
+  }, [])
+
+  useEffect(() => {
+    getUserLogged()
+  }, [getUserLogged])
+
   return (
     <form 
       className='make-post'
@@ -73,7 +81,7 @@ const MakePost = () => {
       <div className='first-step'>
         <section className='make-post__top'>
           <div className='make-post__top--right'>
-            <Link className='back' to='/'>
+            <Link className='back' to={`/${username}`}>
               <AiOutlineClose />
             </Link>
             <h3 className='title'>New Post</h3>
@@ -123,7 +131,7 @@ const MakePost = () => {
       <div className='second-step'>
         <section className='make-post__top'>
           <div className='make-post__top--right'>
-            <Link className='back' to='/'>
+            <Link className='back' to={`/${username}`}>
               <AiOutlineClose />
             </Link>
             <h3 className='title'>New Post</h3>
@@ -131,7 +139,7 @@ const MakePost = () => {
           <button className='make-post__top--left' type='submit'>Share</button>
         </section>
         <section className='caption-container'>
-          <img className='caption-container__image' src={profilePicture} alt='' />
+          <img className='caption-container__image' src={userLogged?.urlImage} alt='' />
           <input 
             className='caption-container__input' 
             type='text' 
