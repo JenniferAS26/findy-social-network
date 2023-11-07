@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { AuthContext } from '../../auth/context/AuthContext'
 import { getPostByParams } from '../../services/postsService'
 import { addComment } from '../../services/commentsService'
 import { getUserByParams } from '../../services/userService'
@@ -9,27 +9,27 @@ import menu from '../../assets/icons/menu-white.svg'
 import sendComment from '../../assets/icons/send-message.svg'
 import FloatingCard from '../../components/FloatingCard'
 import './styles.sass'
-import { useContext } from 'react'
-import { AuthContext } from '../../auth/context/AuthContext'
 
 
 const PostDetail = () => {
   const [postDetails, setPostDetails] = useState([])
   const [userFollow, setUserFollow] = useState([])
   const [userLogged, setUserLogged] = useState([])
+  const [inputValue, setInputValue] = useState('')
   const { postId } = useParams()
 
   const { user } = useContext( AuthContext )
-  console.log(user)
 
-  const { register, handleSubmit } = useForm()
-
-  const onSubmit = async ( comment ) => {
+  const handleSubmit = async ( event ) => {
+    event.preventDefault()
     const newComment = {
-      ...comment,
-      postId
+      content: inputValue,
+      postId,
+      userId: userLogged.userId,
+      postOwnerUsername: postDetails[0]?.username
     }
     await addComment(newComment)
+    setInputValue('')
   }
 
   const getOnePost = useCallback(() => {
@@ -63,7 +63,7 @@ const PostDetail = () => {
     <main className='post-detail'>
       <section className='post-detail__cover-picture'>
         <div className='post-detail__cover-picture--top'>
-          <Link to={`/${user.username}`}>
+          <Link to={`/${userLogged.username}`}>
             <img src={back} alt='back arrow icon' />
           </Link>
           <img src={menu} alt='menu icon' />
@@ -76,7 +76,7 @@ const PostDetail = () => {
       <FloatingCard postDetails={postDetails} image={userFollow?.urlImage} />
       <form 
         className='post-detail__new-comment'
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit}
       >
         <img className='post-detail__new-comment--image' src={userLogged?.urlImage} alt='profile picture' />
         <div className='post-detail__new-comment--input-wrapper'>
@@ -85,7 +85,9 @@ const PostDetail = () => {
             type="text" 
             placeholder='Write comment as username....' 
             name='content'
-            { ...register('content') }
+            autoComplete='off'
+            onChange={(event) => setInputValue(event.target.value)}
+            value={inputValue}
           />
           <button className='send-comment' type='submit'>
             <img src={sendComment} alt='paper plane' />

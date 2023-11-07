@@ -2,13 +2,11 @@ import PropTypes from 'prop-types'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useCallback, useEffect, useState } from 'react'
 import { getUserByParams } from '../../services/userService'
-import save from '../../assets/icons/save.svg'
-import like from '../../assets/icons/like.svg'
-import comment from '../../assets/icons/commets.svg'
-import share from '../../assets/icons/share.svg'
-import { FcLike } from 'react-icons/fc'
-import './styles.sass'
 import LikeButton from '../LikeButton'
+import CommentButton from '../CommentButton'
+import save from '../../assets/icons/save.svg'
+import share from '../../assets/icons/share.svg'
+import './styles.sass'
 
 const PostCard = ({ details }) => {
   PostCard.propTypes = {
@@ -19,9 +17,6 @@ const PostCard = ({ details }) => {
 
   const { username } = useParams()
   const navigate = useNavigate()
-
-  console.log(username)
-  console.log(details)
 
   const goToUserProfile = () => {
     if (details?.username === username) {
@@ -51,7 +46,7 @@ const PostCard = ({ details }) => {
     getUserFollow()
   }, [getUserFollow])
 
-  return (
+  return (<>
     <article
       className='post-card'
     >
@@ -72,17 +67,16 @@ const PostCard = ({ details }) => {
       <div className='post-card__icons'>
         <div className='post-card__icons--reaction'>
           <div className='icon'>
-            {/* <img src={like} alt='icon' /> */}
             <LikeButton />
             <span>300K</span>
           </div>
           <div className='icon'>
-            <img src={comment} alt='icon' />
-            <span>300K</span>
+            <CommentButton details={details} />
+            {/* <span>300K</span> */}
           </div>
           <div className='icon'>
             <img src={share} alt='icon' />
-            <span>300K</span>
+            {/* <span>300K</span> */}
           </div>
         </div>
         <img className='save' src={save} alt='label icon' />
@@ -91,7 +85,7 @@ const PostCard = ({ details }) => {
         <p className='post-card__description--text'><span className='username' onClick={() => goToUserProfile()}>{details?.username}</span> {details?.description}</p>
       </div>
     </article>
-  )
+  </>)
 }
 
 export default PostCard
