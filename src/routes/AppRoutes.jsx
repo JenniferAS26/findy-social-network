@@ -14,6 +14,8 @@ import { AuthContext } from '../auth/context/AuthContext'
 import PublicRoutes from './PublicRoutes'
 import PrivateRoutes from './PrivateRoutes'
 import ListOfContacts from '../pages/ListOfContacts'
+import Notification from "../pages/Notification"
+import Active from "../pages/Active"
 
 const AppRoutes = () => {
   const { logged } = useContext( AuthContext )
@@ -26,6 +28,8 @@ const AppRoutes = () => {
           <Route path='post-detail/:postId' element={<PostDetail />} />
           <Route path='search' element={<SearchContent />} />
           <Route path='profile/:username' element={<MyAccount />} />
+          <Route path='notification' element={<Notification />} />
+          <Route path='Active' element={<Active />} />
         </Route>
         <Route path='make-post/:username' element={<MakePost />} />
         <Route path='user-profile/:username' element={<Profile />} />
