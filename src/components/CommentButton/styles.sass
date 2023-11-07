@@ -1,0 +1,39 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+.comment-card
+  width: 100%
+  height: 70px
+  @include flexCenter(row, flex-start, center)
+  gap: 15px
+  background-color: rgba($color-2, 0.1)
+  padding: 0 10px
+  border-radius: 10px
+  margin-bottom: 10px
+  img
+    width: 50px
+    height: 50px
+    object-fit: cover
+    border-radius: 50%
+  p
+    font-size: 1.6rem
+    font-weight: $medium-weight
+
+:where(.css-dev-only-do-not-override-2i2tap).ant-drawer .ant-drawer-content 
+  width: 414px
+  margin: 0 auto
+  border-top-right-radius: 25px
+  border-top-left-radius: 25px
+
+:where(.css-dev-only-do-not-override-2i2tap).ant-drawer .ant-drawer-header
+  text-align: center
+  border-bottom: none
+
+:where(.css-dev-only-do-not-override-2i2tap).ant-drawer .ant-drawer-close
+  display: none
+
+:where(.css-dev-only-do-not-override-2i2tap).ant-drawer .ant-drawer-title
+  font-size: 2rem
+  font-weight: $medium-weight
+  letter-spacing: 1px
+  color: $primary-text-color
