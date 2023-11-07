@@ -5,6 +5,7 @@ import './styles.sass'
 
 const MyGallery = () => {
   const [posts, setPosts] = useState([])
+  const [filter, setFilter] = useState('photo')
 
   const { username } = useParams()
 
@@ -23,6 +24,8 @@ const MyGallery = () => {
     }
   }
 
+  const filteredPosts = posts.filter(post => getFileTypeFromURL(post?.urlContent) === filter)
+
   const getPostByUser = useCallback(() => {
     getPostByParams({ username })
       .then(response => setPosts(response))
@@ -36,21 +39,40 @@ const MyGallery = () => {
   return (
     <section className='my-gallery'>
       <nav className='my-gallery__navbar'>
-        <Link className='my-gallery__navbar--link'>Photos</Link>
-        <Link className='my-gallery__navbar--link'>Videos</Link>
-        <Link className='my-gallery__navbar--link'>Album</Link>
-        <Link className='my-gallery__navbar--link'>Tag</Link>
+        <Link 
+          className={`my-gallery__navbar--link ${filter === 'photo' ? 'active' : ''}`}
+          onClick={() => setFilter('photo')}
+        >
+          Photos
+        </Link>
+        <Link 
+          className={`my-gallery__navbar--link ${filter === 'video' ? 'active' : ''}`}
+          onClick={() => setFilter('video')}
+        >
+          Videos
+        </Link>
+        <Link 
+          className={`my-gallery__navbar--link ${filter === '' ? 'active' : ''}`}
+          onClick={() => setFilter('')}
+        >
+          All
+        </Link>
+        <Link 
+          className='my-gallery__navbar--link'
+        >
+          Tag
+        </Link>
       </nav>
       <div className='my-gallery__posts-container'>
         {
-          posts.map((post, index) => (
+          filteredPosts.map((post, index) => (
             <div 
               className='my-gallery__posts-container--post' 
               key={index}
             >
               <Link to={`/post-detail/${post?.postId}`}>
                 {
-                  getFileTypeFromURL(post?.urlContent) === 'photo'
+                  filter === 'photo'
                     ? <img className='image' src={post?.urlContent} alt='post image' />
                     : <video className='image' src={post?.urlContent} controls></video>
                 }
