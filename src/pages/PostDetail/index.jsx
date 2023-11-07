@@ -16,6 +16,7 @@ const PostDetail = () => {
   const [userFollow, setUserFollow] = useState([])
   const [userLogged, setUserLogged] = useState([])
   const [inputValue, setInputValue] = useState('')
+  const [fileType, setFileType] = useState('')
   const { postId } = useParams()
 
   const { user } = useContext( AuthContext )
@@ -34,7 +35,10 @@ const PostDetail = () => {
 
   const getOnePost = useCallback(() => {
     getPostByParams({ postId })
-      .then(response => {setPostDetails(response)})
+      .then(response => {
+        setPostDetails(response)
+        setFileType(getFileTypeFromURL(response[0].urlContent))
+      })
   }, [])
 
   const getUserInfo = useCallback(() => {
@@ -46,6 +50,21 @@ const PostDetail = () => {
     getUserByParams({ username: user.username })
       .then(response => setUserLogged(response[0]))
   }, [])
+
+  const getFileTypeFromURL = ( url ) => {
+    const extension = url.split('.').pop()
+
+    const videoExtensions = ['mp4', 'avi', 'mkv', 'mov']
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif']
+
+    if (videoExtensions.includes(extension)) {
+      return 'video'
+    } else if (imageExtensions.includes(extension)) {
+      return 'photo'
+    } else {
+      return 'unknown'
+    }
+  }
 
   useEffect(() => {
     getOnePost()
@@ -68,7 +87,11 @@ const PostDetail = () => {
           </Link>
           <img src={menu} alt='menu icon' />
         </div>
-        <img className='post-detail__cover-picture--image' src={postDetails[0]?.urlContent} alt='cover picture from feed' />
+        {
+          fileType === 'photo'
+            ? <img className='post-detail__cover-picture--image' src={postDetails[0]?.urlContent} alt='cover picture from feed' />
+            : <video className='post-detail__cover-picture--image' src={postDetails[0]?.urlContent}  autoPlay controls></video>
+        }
       </section>
       <section className='post-detail__description'>
         <p className='post-detail__description--text'>{postDetails[0]?.description}</p>

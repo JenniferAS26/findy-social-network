@@ -5,8 +5,23 @@ import './styles.sass'
 
 const MyGallery = () => {
   const [posts, setPosts] = useState([])
+
   const { username } = useParams()
-  // console.log(username)
+
+  const getFileTypeFromURL = ( url ) => {
+    const extension = url.split('.').pop()
+
+    const videoExtensions = ['mp4', 'avi', 'mkv', 'mov']
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif']
+
+    if (videoExtensions.includes(extension)) {
+      return 'video'
+    } else if (imageExtensions.includes(extension)) {
+      return 'photo'
+    } else {
+      return 'unknown'
+    }
+  }
 
   const getPostByUser = useCallback(() => {
     getPostByParams({ username })
@@ -16,6 +31,7 @@ const MyGallery = () => {
   useEffect(() => {
     getPostByUser()
   }, [getPostByUser])
+
 
   return (
     <section className='my-gallery'>
@@ -28,8 +44,17 @@ const MyGallery = () => {
       <div className='my-gallery__posts-container'>
         {
           posts.map((post, index) => (
-            <div className='my-gallery__posts-container--post' key={index}>
-              <img src={post?.urlContent} alt='post image' />
+            <div 
+              className='my-gallery__posts-container--post' 
+              key={index}
+            >
+              <Link to={`/post-detail/${post?.postId}`}>
+                {
+                  getFileTypeFromURL(post?.urlContent) === 'photo'
+                    ? <img className='image' src={post?.urlContent} alt='post image' />
+                    : <video className='image' src={post?.urlContent} controls></video>
+                }
+              </Link>
             </div>
           ))
         }
