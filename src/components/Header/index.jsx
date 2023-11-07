@@ -15,13 +15,17 @@ const Header = () => {
     getUserByParams({ email: user.email })
       .then(response => setUserInfo(response[0]))
   }, [])
-  useEffect(() => {} , [getUserData])
+  useEffect(() => {
+    getUserData()
+  } , [getUserData])
 
   return (
     <header className='header'>
       <img src={logoName} alt='logo icon and name' />
       <section className='interactions'>
-        <Link to={`/users-list/${userInfo?.username}`}><img src={like} alt="heart icon" /></Link>
+        <Link to={`/users-list/${userInfo?.username}`}>
+          <img src={like} alt="heart icon" />
+        </Link>
         <img src={messages} alt="messages icon" />
       </section>
     </header>

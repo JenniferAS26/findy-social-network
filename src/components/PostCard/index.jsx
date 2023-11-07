@@ -92,7 +92,7 @@ const PostCard = ({ details }) => {
         <div className='post-card__icons--reaction'>
           <div className='icon'>
             <LikeButton />
-            <span>300K</span>
+            {/* <span>300K</span> */}
           </div>
           <div className='icon'>
             <CommentButton details={details} />
