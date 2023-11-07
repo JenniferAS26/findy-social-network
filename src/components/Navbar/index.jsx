@@ -56,7 +56,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className='right'>
-          <Link className='footer__list--options' to={`/${userInfo?.username}`}>
+          <Link className='footer__list--options' to='/notification' >
             <img src={bell} alt='house icon' />
           </Link>
           <Link className='footer__list--options' to={`/profile/${userInfo?.username}`}>

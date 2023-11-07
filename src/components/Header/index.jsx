@@ -26,7 +26,9 @@ const Header = () => {
         <Link to={`/users-list/${userInfo?.username}`}>
           <img src={like} alt="heart icon" />
         </Link>
-        <img src={messages} alt="messages icon" />
+        <Link to='/active'>
+          <img src={messages} alt="messages icon" />
+        </Link>
       </section>
     </header>
   )
