@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import PropTypes from 'prop-types';
+/* import PropTypes from 'prop-types'; */
 import { getFollowingByParams } from '../../services/followingService'
 import './styles.scss';
 
@@ -22,7 +22,7 @@ const Gallery = () => {
       case 'video':
         return (
           <video controls>
-            <source src={item.url} type="video/mp4" />
+            <source src={item.wepb} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         );
@@ -61,9 +61,9 @@ const Gallery = () => {
           <button className='tag' onClick={() => setFilter('tags')}>Tags</button>
         </div>
         <div className="Container-Gallery_cards">
-         {/*  {filteredItems.map((item, index) => (
+          {/* {filteredItems.map((item, index) => (
             <div key={index} className="gallery-item">
-              {renderItem(item)}
+              {renderItem(item, filter === 'photos' ? 'photo' : 'video')}
             </div>
           ))} */}
           {
