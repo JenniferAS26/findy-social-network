@@ -9,4 +9,13 @@ const addComment = async ( body ) => {
   }
 }
 
-export { addComment }
+const getCommentsByParams = async ( params ) => {
+  try {
+    const { data } = await axios.get(endpoints.comments, { params: params })
+    return data
+  } catch (error) {
+    console.warn(error)
+  }
+}
+
+export { addComment, getCommentsByParams }

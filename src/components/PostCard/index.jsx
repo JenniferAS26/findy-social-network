@@ -2,13 +2,13 @@ import PropTypes from 'prop-types'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useCallback, useEffect, useState } from 'react'
 import { getUserByParams } from '../../services/userService'
+import LikeButton from '../LikeButton'
 import save from '../../assets/icons/save.svg'
-import like from '../../assets/icons/like.svg'
 import comment from '../../assets/icons/commets.svg'
 import share from '../../assets/icons/share.svg'
-import { FcLike } from 'react-icons/fc'
+import { Drawer } from 'antd'
 import './styles.sass'
-import LikeButton from '../LikeButton'
+import { getCommentsByParams } from '../../services/commentsService'
 
 const PostCard = ({ details }) => {
   PostCard.propTypes = {
@@ -16,12 +16,19 @@ const PostCard = ({ details }) => {
   }
   const [userLogged, setUserLogged] = useState([])
   const [userFollow, setUserFollow] = useState([])
+  const [comments, setComments] = useState([])
+  const [open, setOpen] = useState(false)
 
   const { username } = useParams()
   const navigate = useNavigate()
 
-  console.log(username)
-  console.log(details)
+  const showDrawer = () => {
+    setOpen(true)
+  }
+
+  const onClose = () => {
+    setOpen(false)
+  }
 
   const goToUserProfile = () => {
     if (details?.username === username) {
@@ -42,6 +49,11 @@ const PostCard = ({ details }) => {
     getUserByParams({ username: details?.username })
       .then(response => setUserFollow(response[0]))
   }, [])
+
+  const getCommentsList = useCallback(() => {
+    getCommentsByParams({ postOwnerUsername: details?.username })
+      .then(response => setComments(response))
+  }, [])
   
   useEffect(() => {
     getUserLogged()
@@ -51,7 +63,11 @@ const PostCard = ({ details }) => {
     getUserFollow()
   }, [getUserFollow])
 
-  return (
+  useEffect(() => {
+    getCommentsList()
+  }, [getCommentsList])
+
+  return (<>
     <article
       className='post-card'
     >
@@ -77,12 +93,17 @@ const PostCard = ({ details }) => {
             <span>300K</span>
           </div>
           <div className='icon'>
-            <img src={comment} alt='icon' />
-            <span>300K</span>
+            <img 
+              className='comment-icon' 
+              src={comment} 
+              alt='icon' 
+              onClick={showDrawer}
+            />
+            {/* <span>300K</span> */}
           </div>
           <div className='icon'>
             <img src={share} alt='icon' />
-            <span>300K</span>
+            {/* <span>300K</span> */}
           </div>
         </div>
         <img className='save' src={save} alt='label icon' />
@@ -91,7 +112,14 @@ const PostCard = ({ details }) => {
         <p className='post-card__description--text'><span className='username' onClick={() => goToUserProfile()}>{details?.username}</span> {details?.description}</p>
       </div>
     </article>
-  )
+    <Drawer title='Comments' placement='bottom' onClose={onClose} open={open}>
+      {
+        comments.map((comment, index) => (
+          <p key={index}>{comment.content}</p>
+        ))
+      }
+    </Drawer>
+  </>)
 }
 
 export default PostCard

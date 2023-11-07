@@ -30,10 +30,7 @@ const MyAccount = () => {
   
   const getUserLogged = useCallback(() => {
     getUserByParams({ username })
-    .then(response => {
-      setUserLogged(response[0])
-      console.log(response[0])
-    })
+    .then(response => setUserLogged(response[0]))
   }, [])
 
   useEffect(() => {
