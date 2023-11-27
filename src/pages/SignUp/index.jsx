@@ -82,7 +82,7 @@ const SignUpForm = () => {
               confirmButton: 'custom-button-width'
             }
           }).then(() => {
-            navigate('/sign-in');
+            navigate('/');
           });
         }
       } catch (error) {

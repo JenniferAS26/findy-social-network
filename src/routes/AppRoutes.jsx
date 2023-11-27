@@ -25,20 +25,20 @@ const AppRoutes = () => {
       <Route element={<PrivateRoutes isAuth={logged}/>}>
         <Route element={<Layout />}>
           <Route path='/:username' element={<Feed />} />
-          <Route path='post-detail/:postId' element={<PostDetail />} />
-          <Route path='search' element={<SearchContent />} />
-          <Route path='profile/:username' element={<MyAccount />} />
-          <Route path='notification' element={<Notification />} />
-          <Route path='active' element={<Active />} />
+          <Route path='/post-detail/:postId' element={<PostDetail />} />
+          <Route path='/search' element={<SearchContent />} />
+          <Route path='/profile/:username' element={<MyAccount />} />
+          <Route path='/notification' element={<Notification />} />
+          <Route path='/active' element={<Active />} />
         </Route>
-        <Route path='make-post/:username' element={<MakePost />} />
-        <Route path='user-profile/:username' element={<Profile />} />
-        <Route path='edit-account/:username' element={<EditMyAccount />} />
-        <Route path='users-list/:username' element={<ListOfContacts />} />
+        <Route path='/make-post/:username' element={<MakePost />} />
+        <Route path='/user-profile/:username' element={<Profile />} />
+        <Route path='/edit-account/:username' element={<EditMyAccount />} />
+        <Route path='/users-list/:username' element={<ListOfContacts />} />
       </Route>
       <Route element={<PublicRoutes />} isAuth={ logged } >
-        <Route path='sign-in' element={<SignIn />} />
-        <Route path='sign-up' element={<SignUp />} />
+        <Route path='/' element={<SignIn />} />
+        <Route path='/sign-up' element={<SignUp />} />
       </Route>
     </Routes>
   )
